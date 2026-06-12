@@ -58,13 +58,29 @@ function makeSalt() {
   return crypto.randomBytes(16).toString('hex');
 }
 
-// Compatible with the client-side offline lock hash.
 function hashClientPassword(password, salt) {
   return crypto.createHash('sha256').update(String(salt) + ':' + String(password)).digest('hex');
 }
 
 function generatePassword() {
   return 'GRABO-' + String(Math.floor(1000 + Math.random() * 9000));
+}
+
+// ===================== NOUVEAU : GÉNÉRATION IDENTIFIANT =====================
+// Format : PREFIXE-SECTEUR + 4 caractères aléatoires (ex: GRABO-EST-4X7K)
+function generateUsername(secteur) {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sans I, O, 0, 1 pour éviter confusion
+  let suffix = '';
+  for (let i = 0; i < 4; i++) {
+    suffix += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  // Raccourcit le nom du secteur : "GRABO EST 2" -> "GRABO-EST2"
+  const prefix = String(secteur || 'ACESE')
+    .toUpperCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^A-Z0-9\-]/g, '')
+    .substring(0, 15);
+  return prefix + '-' + suffix;
 }
 
 // ===================== MIDDLEWARE =====================
@@ -504,6 +520,22 @@ app.get('/api/admin/directors', async function(req, res) {
   }
 });
 
+// NOUVEAU : route pour générer un identifiant suggéré
+app.get('/api/admin/directors/generate-username', async function(req, res) {
+  const secteur = String(req.query.secteur || '').trim();
+  if (!secteur) return res.status(400).json({ error: 'Secteur requis' });
+
+  // Essaie jusqu'à 5 fois pour éviter un conflit rare
+  for (let i = 0; i < 5; i++) {
+    const username = generateUsername(secteur);
+    const existing = await pool.query('SELECT id FROM director_accounts WHERE username = $1', [username]);
+    if (existing.rowCount === 0) {
+      return res.json({ username });
+    }
+  }
+  res.status(500).json({ error: 'Impossible de générer un identifiant unique, réessayez' });
+});
+
 app.post('/api/admin/directors', async function(req, res) {
   const body = req.body || {};
   const nom = String(body.nom_directeur || '').trim().toUpperCase();
@@ -513,7 +545,9 @@ app.post('/api/admin/directors', async function(req, res) {
   const email = String(body.email || '').trim().toLowerCase();
   const secteur = String(body.secteur_pedagogique || '').trim().toUpperCase();
   const ecole = String(body.nom_ecole || '').trim().toUpperCase();
-  const username = String(body.username || (ecole.replace(/[^A-Z0-9]/g, '') + '-' + nom.replace(/[^A-Z0-9]/g, ''))).toUpperCase().substring(0, 60);
+
+  // Si l'admin a fourni un username on l'utilise, sinon on génère
+  const username = String(body.username || generateUsername(secteur)).toUpperCase().substring(0, 30);
   const password = String(body.password || generatePassword()).trim();
 
   if (!nom || !prenoms || !contact1 || !secteur || !ecole || !username) {
@@ -564,6 +598,21 @@ app.post('/api/admin/directors/:id/toggle', async function(req, res) {
     res.json({ success: true, director: publicDirectorRow(r.rows[0]) });
   } catch (err) {
     res.status(500).json({ error: 'Erreur statut compte' });
+  }
+});
+
+// NOUVEAU : Supprimer un compte directeur
+app.delete('/api/admin/directors/:id', async function(req, res) {
+  const id = parseInt(req.params.id);
+  if (isNaN(id)) return res.status(400).json({ error: 'ID invalide' });
+  try {
+    const r = await pool.query('DELETE FROM director_accounts WHERE id = $1 RETURNING username, nom_ecole', [id]);
+    if (r.rowCount === 0) return res.status(404).json({ error: 'Compte introuvable' });
+    await logAction('DELETE_DIRECTOR_ACCOUNT', { id, username: r.rows[0].username, ecole: r.rows[0].nom_ecole }, req.ip);
+    res.json({ success: true, message: 'Compte supprimé' });
+  } catch (err) {
+    console.error('Erreur suppression directeur:', err);
+    res.status(500).json({ error: 'Erreur suppression compte' });
   }
 });
 

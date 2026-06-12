@@ -22,10 +22,7 @@
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
-  <!-- Toast container -->
   <div id="toast-container" class="fixed top-4 right-4 z-50 flex flex-col gap-2"></div>
-
-  <!-- Loading overlay -->
   <div id="loading-overlay" class="fixed inset-0 bg-white/80 z-50 flex items-center justify-center">
     <div class="text-center">
       <div class="loading !w-12 !h-12 !border-4 !border-green-500/30 !border-t-green-600 mx-auto mb-4"></div>
@@ -33,7 +30,6 @@
     </div>
   </div>
 
-  <!-- Header -->
   <header class="bg-gradient-to-r from-green-900 to-green-700 text-white shadow-lg">
     <div class="max-w-7xl mx-auto px-4 py-4">
       <div class="flex items-center justify-between flex-wrap gap-2">
@@ -41,50 +37,42 @@
           <div class="bg-white/20 p-2 rounded-xl text-2xl">🎓</div>
           <div>
             <h1 class="text-xl font-bold">ACESE – Dashboard Admin</h1>
-            <p class="text-sm text-green-200">IEPP GRABO • DRENAET San-Pédro </p>
+            <p class="text-sm text-green-200">IEPP GRABO • DRENAET San-Pédro</p>
           </div>
         </div>
         <div class="flex items-center gap-3 flex-wrap">
           <span class="text-[8px] text-white/30 font-light leading-tight text-right">WebApp powered by<br>DJ3K S3PH1R0TH</span>
           <span id="keepalive-status" class="text-[10px] bg-green-400/30 text-green-100 px-2 py-1 rounded-full">⏰ Keep-alive actif</span>
-          <button id="btn-refresh" class="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm transition-colors cursor-pointer">
-            🔄 Actualiser
-          </button>
-          <button id="btn-export" class="flex items-center gap-1.5 px-3 py-1.5 bg-green-500 hover:bg-green-400 rounded-lg text-sm font-medium transition-colors cursor-pointer">
-            📥 Export Excel
-          </button>
-          <button id="btn-backup" class="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-400 rounded-lg text-sm font-medium transition-colors cursor-pointer">
-            💾 Sauvegarder
-          </button>
+          <button id="btn-refresh" class="flex items-center gap-1.5 px-3 py-1.5 bg-white/10 hover:bg-white/20 rounded-lg text-sm transition-colors cursor-pointer">🔄 Actualiser</button>
+          <button id="btn-export" class="flex items-center gap-1.5 px-3 py-1.5 bg-green-500 hover:bg-green-400 rounded-lg text-sm font-medium transition-colors cursor-pointer">📥 Export Excel</button>
+          <button id="btn-backup" class="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500 hover:bg-amber-400 rounded-lg text-sm font-medium transition-colors cursor-pointer">💾 Sauvegarder</button>
         </div>
       </div>
-      <div class="mt-3 text-xs text-green-200 bg-white/10 rounded-lg px-3 py-1.5 text-center">
-        INTERFACE ADMINISTRATEUR
-      </div>
+      <div class="mt-3 text-xs text-green-200 bg-white/10 rounded-lg px-3 py-1.5 text-center">INTERFACE ADMINISTRATEUR</div>
     </div>
   </header>
 
   <!-- Stats cards -->
   <div class="max-w-7xl mx-auto px-4 -mt-4">
-    <div class="grid grid-cols-2 md:grid-cols-5 gap-3" id="stats-cards">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
       <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-green-500 animate-slide-up">
         <p class="text-xs text-gray-500 uppercase font-medium">Total Élèves</p>
         <p class="text-3xl font-bold text-green-600 mt-1" id="stat-total">—</p>
       </div>
-      <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-sky-500 animate-slide-up" style="animation-delay:0.05s">
+      <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-sky-500 animate-slide-up">
         <p class="text-xs text-gray-500 uppercase font-medium">Total Garçons</p>
         <p class="text-3xl font-bold text-sky-600 mt-1" id="stat-garcons">—</p>
       </div>
-      <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500 animate-slide-up" style="animation-delay:0.1s">
+      <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-pink-500 animate-slide-up">
         <p class="text-xs text-gray-500 uppercase font-medium">Total Filles</p>
         <p class="text-3xl font-bold text-pink-600 mt-1" id="stat-filles">—</p>
       </div>
-      <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-blue-500 animate-slide-up" style="animation-delay:0.15s">
+      <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-blue-500 animate-slide-up">
         <p class="text-xs text-gray-500 uppercase font-medium">Écoles actives</p>
         <p class="text-3xl font-bold text-blue-600 mt-1" id="stat-ecoles">—</p>
         <p class="text-[10px] text-gray-400 mt-0.5" id="stat-ecoles-detail">sur X enregistrées</p>
       </div>
-      <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-purple-500 animate-slide-up" style="animation-delay:0.2s">
+      <div class="bg-white rounded-xl shadow-md p-4 border-l-4 border-purple-500 animate-slide-up">
         <p class="text-xs text-gray-500 uppercase font-medium">Secteurs actifs</p>
         <p class="text-3xl font-bold text-purple-600 mt-1" id="stat-secteurs">—</p>
         <p class="text-[10px] text-gray-400 mt-0.5">sur 5 secteurs</p>
@@ -92,43 +80,33 @@
     </div>
   </div>
 
-  <!-- Backup / Restore -->
+  <!-- Backup -->
   <div class="max-w-7xl mx-auto px-4 mt-6">
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div class="bg-gradient-to-r from-amber-600 to-amber-500 px-5 py-3 flex items-center justify-between cursor-pointer" id="backup-header">
-        <div class="flex items-center gap-2">
-          <span>💾</span>
-          <h3 class="font-semibold text-white text-sm">Sauvegarde & Restauration des données</h3>
-        </div>
+        <div class="flex items-center gap-2"><span>💾</span><h3 class="font-semibold text-white text-sm">Sauvegarde & Restauration des données</h3></div>
         <span id="backup-toggle" class="text-white/80 hover:text-white text-lg">▼</span>
       </div>
       <div id="backup-panel" class="secteur-panel">
         <div class="p-5 space-y-4">
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-amber-800">
+          <div class="bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm text-amber-800">
             <p class="font-semibold mb-1">⚠️ Important</p>
             <p><strong>Téléchargez une sauvegarde régulièrement</strong> et conservez le fichier sur votre ordinateur.</p>
           </div>
           <div class="flex gap-3">
-            <button id="btn-backup-download" class="flex-1 px-4 py-3 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-400 transition-colors cursor-pointer">
-              💾 Sauvegarde Système
-            </button>
-            <button id="btn-backup-restore" class="flex-1 px-4 py-3 bg-white border-2 border-amber-500 text-amber-600 rounded-lg text-sm font-semibold hover:bg-amber-50 transition-colors cursor-pointer">
-              📂 Restaurer Sauvegarde
-            </button>
+            <button id="btn-backup-download" class="flex-1 px-4 py-3 bg-amber-500 text-white rounded-lg text-sm font-semibold hover:bg-amber-400 transition-colors cursor-pointer">💾 Sauvegarde Système</button>
+            <button id="btn-backup-restore" class="flex-1 px-4 py-3 bg-white border-2 border-amber-500 text-amber-600 rounded-lg text-sm font-semibold hover:bg-amber-50 transition-colors cursor-pointer">📂 Restaurer Sauvegarde</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Contact Info Management -->
+  <!-- Contacts -->
   <div class="max-w-7xl mx-auto px-4 mt-6">
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div class="bg-gradient-to-r from-amber-600 to-amber-500 px-5 py-3 flex items-center justify-between cursor-pointer" id="contacts-header">
-        <div class="flex items-center gap-2">
-          <span>📞</span>
-          <h3 class="font-semibold text-white text-sm">Contact Support (visible sur l'app client)</h3>
-        </div>
+        <div class="flex items-center gap-2"><span>📞</span><h3 class="font-semibold text-white text-sm">Contact Support (visible sur l'app client)</h3></div>
         <span id="contacts-toggle" class="text-white/80 hover:text-white text-lg">▼</span>
       </div>
       <div id="contacts-panel" class="secteur-panel">
@@ -153,7 +131,7 @@
     </div>
   </div>
 
-  <!-- Secteurs & Écoles Management -->
+  <!-- Secteurs & Écoles -->
   <div class="max-w-7xl mx-auto px-4 mt-6">
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div class="bg-gradient-to-r from-purple-600 to-purple-500 px-5 py-3 flex items-center justify-between cursor-pointer" id="secteurs-header">
@@ -166,12 +144,10 @@
       </div>
       <div id="secteurs-panel" class="secteur-panel">
         <div class="p-5 space-y-4">
-          <!-- Add secteur -->
           <div class="flex gap-2">
             <input type="text" id="new-secteur-input" placeholder="Nom du nouveau secteur..." maxlength="100" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:border-purple-500">
             <button id="btn-add-secteur" class="px-4 py-2 bg-purple-500 text-white rounded-lg text-sm font-medium hover:bg-purple-400 transition-colors cursor-pointer">+ Ajouter secteur</button>
           </div>
-          <!-- Secteurs list -->
           <div id="secteurs-list-container" class="space-y-3">
             <p class="text-gray-400 text-sm text-center py-4">Chargement...</p>
           </div>
@@ -180,7 +156,7 @@
     </div>
   </div>
 
-  <!-- Director Accounts Management -->
+  <!-- Comptes Directeurs -->
   <div class="max-w-7xl mx-auto px-4 mt-6">
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div class="bg-gradient-to-r from-slate-800 to-slate-700 px-5 py-3 flex items-center justify-between cursor-pointer" id="directors-header">
@@ -198,16 +174,21 @@
             <p>Crée un identifiant et un mot de passe temporaire, puis communique-les au directeur. Sa configuration sera automatique à la première connexion.</p>
           </div>
 
-          <!-- ============ FORMULAIRE MODIFIÉ ============ -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <input id="dir-username" type="text" placeholder="Identifiant (ex: EPPGNATO01)" class="px-3 py-2 border border-gray-300 rounded-lg text-sm uppercase">
+            <!-- Identifiant avec bouton générer -->
+            <div class="flex flex-col gap-1">
+              <div class="flex gap-1">
+                <input id="dir-username" type="text" placeholder="Identifiant (auto-généré)" class="flex-1 px-3 py-2 border border-gray-300 rounded-lg text-sm uppercase font-mono" readonly>
+                <button id="btn-gen-username" class="px-2 py-2 bg-slate-200 hover:bg-slate-300 rounded-lg text-xs transition-colors cursor-pointer" title="Régénérer">🔁</button>
+              </div>
+              <p class="text-[10px] text-gray-400 pl-1">Généré automatiquement selon le secteur</p>
+            </div>
             <input id="dir-password" type="text" placeholder="Mot de passe (vide = généré)" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
             <input id="dir-contact1" type="text" maxlength="10" placeholder="Téléphone 07XXXXXXXX" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
             <input id="dir-nom" type="text" placeholder="Nom directeur" class="px-3 py-2 border border-gray-300 rounded-lg text-sm uppercase">
             <input id="dir-prenoms" type="text" placeholder="Prénoms directeur" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
             <input id="dir-email" type="text" placeholder="Email (facultatif)" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
 
-            <!-- SELECT SECTEUR (remplace l'input texte) -->
             <div class="flex flex-col gap-1">
               <select id="dir-secteur-select" class="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:border-slate-500">
                 <option value="">— Choisir un secteur —</option>
@@ -215,7 +196,6 @@
               <p class="text-[10px] text-gray-400 pl-1">Secteur pédagogique</p>
             </div>
 
-            <!-- SELECT ÉCOLE (remplace l'input texte, se met à jour selon le secteur) -->
             <div class="flex flex-col gap-1">
               <select id="dir-ecole-select" class="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:border-slate-500" disabled>
                 <option value="">— Choisir d'abord un secteur —</option>
@@ -225,7 +205,6 @@
 
             <button id="btn-create-director" class="px-4 py-2 bg-slate-800 text-white rounded-lg text-sm font-medium hover:bg-slate-700 transition-colors cursor-pointer">+ Créer le compte</button>
           </div>
-          <!-- ============ FIN FORMULAIRE MODIFIÉ ============ -->
 
           <div id="director-created-box" class="hidden bg-green-50 border border-green-200 rounded-lg p-4 text-sm text-green-800"></div>
           <div id="directors-list" class="space-y-2">
@@ -236,19 +215,14 @@
     </div>
   </div>
 
-  <!-- Filters -->
+  <!-- Filtres -->
   <div class="max-w-7xl mx-auto px-4 mt-6">
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-      <div class="flex items-center gap-2 mb-3">
-        <span class="text-lg">🔍</span>
-        <h2 class="font-semibold text-gray-700">Filtres</h2>
-      </div>
+      <div class="flex items-center gap-2 mb-3"><span class="text-lg">🔍</span><h2 class="font-semibold text-gray-700">Filtres</h2></div>
       <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
         <div>
           <label class="block text-xs text-gray-500 mb-1">Secteur</label>
-          <select id="filter-secteur" class="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-green-500">
-            <option value="">Tous les secteurs</option>
-          </select>
+          <select id="filter-secteur" class="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-green-500"><option value="">Tous les secteurs</option></select>
         </div>
         <div>
           <label class="block text-xs text-gray-500 mb-1">École</label>
@@ -263,39 +237,27 @@
           <input type="date" id="filter-dateFin" class="w-full px-3 py-2 rounded-lg border border-gray-300 text-sm focus:border-green-500">
         </div>
       </div>
-      <div class="mt-3 flex gap-2">
-        <button id="btn-clear-filters" class="px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer">
-          ✕ Effacer les filtres
-        </button>
+      <div class="mt-3">
+        <button id="btn-clear-filters" class="px-3 py-1.5 text-sm text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors cursor-pointer">✕ Effacer les filtres</button>
       </div>
     </div>
   </div>
 
-  <!-- Stats by sector -->
+  <!-- Stats secteur/classe -->
   <div class="max-w-7xl mx-auto px-4 mt-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div class="bg-gradient-to-r from-green-600 to-green-500 px-5 py-3 flex items-center gap-2">
-          <span>📊</span>
-          <h3 class="font-semibold text-white text-sm">Par secteur pédagogique</h3>
-        </div>
-        <div class="p-4" id="stats-secteur-table">
-          <p class="text-gray-400 text-sm text-center py-4">Chargement...</p>
-        </div>
+        <div class="bg-gradient-to-r from-green-600 to-green-500 px-5 py-3 flex items-center gap-2"><span>📊</span><h3 class="font-semibold text-white text-sm">Par secteur pédagogique</h3></div>
+        <div class="p-4" id="stats-secteur-table"><p class="text-gray-400 text-sm text-center py-4">Chargement...</p></div>
       </div>
       <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-        <div class="bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-3 flex items-center gap-2">
-          <span>📚</span>
-          <h3 class="font-semibold text-white text-sm">Par classe</h3>
-        </div>
-        <div class="p-4" id="stats-classe-table">
-          <p class="text-gray-400 text-sm text-center py-4">Chargement...</p>
-        </div>
+        <div class="bg-gradient-to-r from-blue-600 to-blue-500 px-5 py-3 flex items-center gap-2"><span>📚</span><h3 class="font-semibold text-white text-sm">Par classe</h3></div>
+        <div class="p-4" id="stats-classe-table"><p class="text-gray-400 text-sm text-center py-4">Chargement...</p></div>
       </div>
     </div>
   </div>
 
-  <!-- Data table -->
+  <!-- Tableau données -->
   <div class="max-w-7xl mx-auto px-4 mt-6 mb-8">
     <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
       <div class="bg-gradient-to-r from-green-700 to-green-600 px-5 py-3 flex items-center justify-between">
@@ -309,14 +271,10 @@
         <table class="w-full text-sm">
           <thead>
             <tr class="bg-gray-50 text-gray-600 text-xs uppercase">
-              <th class="px-4 py-3 text-left">ID</th>
-              <th class="px-4 py-3 text-left">Date</th>
-              <th class="px-4 py-3 text-left">Secteur</th>
-              <th class="px-4 py-3 text-left">École</th>
-              <th class="px-4 py-3 text-left">Directeur</th>
-              <th class="px-4 py-3 text-left">Contact</th>
-              <th class="px-4 py-3 text-center">Élèves</th>
-              <th class="px-4 py-3 text-center">Actions</th>
+              <th class="px-4 py-3 text-left">ID</th><th class="px-4 py-3 text-left">Date</th>
+              <th class="px-4 py-3 text-left">Secteur</th><th class="px-4 py-3 text-left">École</th>
+              <th class="px-4 py-3 text-left">Directeur</th><th class="px-4 py-3 text-left">Contact</th>
+              <th class="px-4 py-3 text-center">Élèves</th><th class="px-4 py-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody id="data-table-body" class="divide-y divide-gray-100">
@@ -327,7 +285,7 @@
     </div>
   </div>
 
-  <!-- Detail modal -->
+  <!-- Modal détail -->
   <div id="detail-modal" class="fixed inset-0 z-50 bg-black/50 hidden items-center justify-center p-4">
     <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-y-auto animate-slide-up">
       <div class="bg-gradient-to-r from-green-700 to-green-600 p-5 flex items-center justify-between sticky top-0 z-10">
@@ -339,7 +297,6 @@
   </div>
 
   <script>
-    // ============ XSS PROTECTION ============
     function esc(str) {
       if (!str) return '';
       var div = document.createElement('div');
@@ -347,103 +304,52 @@
       return div.innerHTML;
     }
 
-    // ============ VARIABLES ============
-    var allLots = [];
-    var allStats = {};
-    var allSecteurs = [];
-    var allDirectors = [];
-    var filterTimeout = null;
-    var secteursPanelOpen = false;
-    var contactsPanelOpen = false;
+    var allLots = [], allStats = {}, allSecteurs = [], allDirectors = [];
+    var filterTimeout = null, secteursPanelOpen = false, contactsPanelOpen = false;
 
-    // ============ TOAST ============
+    // ===== TOAST =====
     function showToast(type, text) {
-      var container = document.getElementById('toast-container');
-      var colors = {
-        success: 'bg-green-50 border-green-400 text-green-800',
-        error: 'bg-red-50 border-red-400 text-red-800',
-        info: 'bg-blue-50 border-blue-400 text-blue-800'
-      };
+      var colors = { success: 'bg-green-50 border-green-400 text-green-800', error: 'bg-red-50 border-red-400 text-red-800', info: 'bg-blue-50 border-blue-400 text-blue-800' };
       var icons = { success: '✅', error: '❌', info: 'ℹ️' };
       var toast = document.createElement('div');
       toast.className = 'flex items-center gap-2 px-4 py-3 rounded-lg border shadow-lg min-w-[280px] max-w-sm animate-slide-down ' + colors[type];
       toast.innerHTML = '<span>' + icons[type] + '</span><span class="text-sm font-medium">' + esc(text) + '</span>';
-      container.appendChild(toast);
-      setTimeout(function() {
-        toast.style.opacity = '0';
-        toast.style.transition = 'opacity 0.3s';
-        setTimeout(function() { toast.remove(); }, 300);
-      }, 4000);
+      document.getElementById('toast-container').appendChild(toast);
+      setTimeout(function() { toast.style.opacity = '0'; toast.style.transition = 'opacity 0.3s'; setTimeout(function() { toast.remove(); }, 300); }, 4000);
     }
 
-    // ============ CONTACTS MANAGEMENT ============
+    // ===== CONTACTS =====
     function toggleContactsPanel() {
       contactsPanelOpen = !contactsPanelOpen;
-      var panel = document.getElementById('contacts-panel');
-      var toggle = document.getElementById('contacts-toggle');
-      if (contactsPanelOpen) {
-        panel.classList.add('open');
-        toggle.textContent = '▲';
-      } else {
-        panel.classList.remove('open');
-        toggle.textContent = '▼';
-      }
+      document.getElementById('contacts-panel').classList.toggle('open', contactsPanelOpen);
+      document.getElementById('contacts-toggle').textContent = contactsPanelOpen ? '▲' : '▼';
     }
-
     function loadContacts() {
-      fetch('/api/config')
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          document.getElementById('contact-nom').value = data.contact_nom || '';
-          document.getElementById('contact-whatsapp').value = data.contact_whatsapp || '';
-          document.getElementById('contact-email').value = data.contact_email || '';
-        })
-        .catch(function() {});
+      fetch('/api/config').then(function(r) { return r.json(); }).then(function(d) {
+        document.getElementById('contact-nom').value = d.contact_nom || '';
+        document.getElementById('contact-whatsapp').value = d.contact_whatsapp || '';
+        document.getElementById('contact-email').value = d.contact_email || '';
+      }).catch(function() {});
     }
-
     function saveContacts() {
-      var data = {
-        contact_nom: document.getElementById('contact-nom').value.trim(),
-        contact_whatsapp: document.getElementById('contact-whatsapp').value.trim(),
-        contact_email: document.getElementById('contact-email').value.trim()
-      };
-      fetch('/api/config', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data)
-      })
-      .then(function(res) { return res.json(); })
-      .then(function(result) {
-        if (result.success) {
-          showToast('success', 'Contacts sauvegardés');
-        } else {
-          showToast('error', result.error || 'Erreur');
-        }
-      })
-      .catch(function() { showToast('error', 'Erreur réseau'); });
+      var data = { contact_nom: document.getElementById('contact-nom').value.trim(), contact_whatsapp: document.getElementById('contact-whatsapp').value.trim(), contact_email: document.getElementById('contact-email').value.trim() };
+      fetch('/api/config', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function(r) { return r.json(); }).then(function(d) { showToast(d.success ? 'success' : 'error', d.success ? 'Contacts sauvegardés' : (d.error || 'Erreur')); })
+        .catch(function() { showToast('error', 'Erreur réseau'); });
     }
 
-    // ============ DIRECTORS MANAGEMENT ============
+    // ===== DIRECTORS =====
     function toggleDirectorsPanel() {
       var panel = document.getElementById('directors-panel');
-      var toggle = document.getElementById('directors-toggle');
-      if (panel.classList.contains('open')) {
-        panel.classList.remove('open');
-        toggle.textContent = '▼';
-      } else {
-        panel.classList.add('open');
-        toggle.textContent = '▲';
-      }
+      var open = panel.classList.toggle('open');
+      document.getElementById('directors-toggle').textContent = open ? '▲' : '▼';
     }
 
     function loadDirectors() {
-      fetch('/api/admin/directors')
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          allDirectors = Array.isArray(data) ? data : [];
-          renderDirectors();
-        })
-        .catch(function() { showToast('error', 'Erreur chargement comptes directeurs'); });
+      fetch('/api/admin/directors').then(function(r) { return r.json(); }).then(function(d) {
+        allDirectors = Array.isArray(d) ? d : [];
+        renderDirectors();
+      }).catch(function() { showToast('error', 'Erreur chargement comptes directeurs'); });
     }
 
     function renderDirectors() {
@@ -453,7 +359,11 @@
         container.innerHTML = '<p class="text-gray-400 text-sm text-center py-4">Aucun compte directeur</p>';
         return;
       }
-      var html = '<div class="overflow-x-auto"><table class="w-full text-sm"><thead><tr class="text-xs text-gray-500 border-b"><th class="py-2 text-left">Identifiant</th><th class="py-2 text-left">Directeur</th><th class="py-2 text-left">École</th><th class="py-2 text-left">Contact</th><th class="py-2 text-center">Statut</th><th class="py-2 text-center">Actions</th></tr></thead><tbody>';
+      var html = '<div class="overflow-x-auto"><table class="w-full text-sm"><thead><tr class="text-xs text-gray-500 border-b">' +
+        '<th class="py-2 text-left">Identifiant</th><th class="py-2 text-left">Directeur</th>' +
+        '<th class="py-2 text-left">École</th><th class="py-2 text-left">Contact</th>' +
+        '<th class="py-2 text-center">Statut</th><th class="py-2 text-center">Actions</th>' +
+        '</tr></thead><tbody>';
       for (var i = 0; i < allDirectors.length; i++) {
         var d = allDirectors[i];
         html += '<tr class="border-b border-gray-100 hover:bg-gray-50">' +
@@ -462,18 +372,103 @@
           '<td class="py-2"><span class="text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded-full">' + esc(d.secteur_pedagogique) + '</span><br>' + esc(d.nom_ecole) + '</td>' +
           '<td class="py-2 text-xs">' + esc(d.contact1) + '</td>' +
           '<td class="py-2 text-center"><span class="text-xs px-2 py-0.5 rounded-full ' + (d.is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700') + '">' + (d.is_active ? 'Actif' : 'Désactivé') + '</span></td>' +
-          '<td class="py-2 text-center">' +
-            '<button data-action="reset-director" data-id="' + d.id + '" class="director-action-btn px-2 py-1 text-xs bg-amber-50 text-amber-700 rounded hover:bg-amber-100 mr-1">🔑 Reset</button>' +
+          '<td class="py-2 text-center flex gap-1 justify-center flex-wrap">' +
+            '<button data-action="reset-director" data-id="' + d.id + '" class="director-action-btn px-2 py-1 text-xs bg-amber-50 text-amber-700 rounded hover:bg-amber-100">🔑 Reset</button>' +
             '<button data-action="toggle-director" data-id="' + d.id + '" class="director-action-btn px-2 py-1 text-xs bg-slate-50 text-slate-700 rounded hover:bg-slate-100">' + (d.is_active ? 'Désactiver' : 'Réactiver') + '</button>' +
+            '<button data-action="delete-director" data-id="' + d.id + '" data-username="' + esc(d.username) + '" class="director-action-btn px-2 py-1 text-xs bg-red-50 text-red-600 rounded hover:bg-red-100">🗑 Supprimer</button>' +
           '</td></tr>';
       }
       html += '</tbody></table></div>';
       container.innerHTML = html;
     }
 
-    // ============ NOUVEAU : Remplissage des selects secteur/école ============
+    // ===== GÉNÉRATION IDENTIFIANT =====
+    function generateUsername() {
+      var secteur = document.getElementById('dir-secteur-select').value;
+      if (!secteur) {
+        showToast('info', 'Choisissez d\'abord un secteur pour générer l\'identifiant');
+        return;
+      }
+      fetch('/api/admin/directors/generate-username?secteur=' + encodeURIComponent(secteur))
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.username) {
+            document.getElementById('dir-username').value = d.username;
+          } else {
+            showToast('error', d.error || 'Erreur génération');
+          }
+        })
+        .catch(function() { showToast('error', 'Erreur réseau'); });
+    }
 
-    // Appelé après loadSecteurs() — peuple le <select> secteur du formulaire directeur
+    function createDirector() {
+      var secteurVal = document.getElementById('dir-secteur-select').value.trim();
+      var ecoleVal = document.getElementById('dir-ecole-select').value.trim();
+      if (!secteurVal) { showToast('error', 'Veuillez choisir un secteur pédagogique'); return; }
+      if (!ecoleVal) { showToast('error', 'Veuillez choisir une école'); return; }
+
+      var payload = {
+        username: document.getElementById('dir-username').value.trim(),
+        password: document.getElementById('dir-password').value.trim(),
+        contact1: document.getElementById('dir-contact1').value.trim(),
+        nom_directeur: document.getElementById('dir-nom').value.trim(),
+        prenoms_directeur: document.getElementById('dir-prenoms').value.trim(),
+        email: document.getElementById('dir-email').value.trim(),
+        secteur_pedagogique: secteurVal,
+        nom_ecole: ecoleVal
+      };
+      fetch('/api/admin/directors', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+          if (!data.success) return showToast('error', data.error || 'Erreur création compte');
+          var box = document.getElementById('director-created-box');
+          box.classList.remove('hidden');
+          box.innerHTML = '<p class="font-bold mb-2">✅ Compte créé avec succès !</p>' +
+            '<div class="bg-white rounded-lg p-3 border border-green-200 font-mono text-sm space-y-1">' +
+            '<p>🪪 Identifiant : <strong>' + esc(data.director.username) + '</strong></p>' +
+            '<p>🔑 Mot de passe : <strong>' + esc(data.temporary_password) + '</strong></p>' +
+            '<p>🏫 École : <strong>' + esc(data.director.nom_ecole) + '</strong> (' + esc(data.director.secteur_pedagogique) + ')</p>' +
+            '</div>' +
+            '<p class="text-xs mt-2 text-green-600">📋 Copiez ces informations et transmettez-les au directeur.</p>';
+          ['dir-password','dir-contact1','dir-nom','dir-prenoms','dir-email'].forEach(function(id) { document.getElementById(id).value = ''; });
+          document.getElementById('dir-username').value = '';
+          document.getElementById('dir-secteur-select').value = '';
+          document.getElementById('dir-ecole-select').innerHTML = '<option value="">— Choisir d\'abord un secteur —</option>';
+          document.getElementById('dir-ecole-select').disabled = true;
+          loadDirectors();
+        })
+        .catch(function() { showToast('error', 'Erreur réseau'); });
+    }
+
+    function resetDirectorPassword(id) {
+      fetch('/api/admin/directors/' + id + '/reset-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) })
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (!d.success) return showToast('error', d.error || 'Erreur reset');
+          alert('Nouveau mot de passe pour ' + d.director.username + ' :\n\n' + d.temporary_password + '\n\nDonnez-le au directeur.');
+          loadDirectors();
+        }).catch(function() { showToast('error', 'Erreur réseau'); });
+    }
+
+    function toggleDirector(id) {
+      fetch('/api/admin/directors/' + id + '/toggle', { method: 'POST' })
+        .then(function(r) { return r.json(); })
+        .then(function(d) { if (!d.success) showToast('error', d.error || 'Erreur'); else loadDirectors(); })
+        .catch(function() { showToast('error', 'Erreur réseau'); });
+    }
+
+    // NOUVEAU : Supprimer un directeur
+    function deleteDirector(id, username) {
+      if (!confirm('⚠️ Supprimer définitivement le compte "' + username + '" ?\n\nLe directeur ne pourra plus se connecter. Les données des élèves qu\'il a envoyées restent conservées.')) return;
+      fetch('/api/admin/directors/' + id, { method: 'DELETE' })
+        .then(function(r) { return r.json(); })
+        .then(function(d) {
+          if (d.success) { showToast('success', 'Compte "' + username + '" supprimé'); loadDirectors(); }
+          else showToast('error', d.error || 'Erreur suppression');
+        }).catch(function() { showToast('error', 'Erreur réseau'); });
+    }
+
+    // ===== SELECTS SECTEUR/ÉCOLE =====
     function populateDirSecteurSelect() {
       var select = document.getElementById('dir-secteur-select');
       var current = select.value;
@@ -487,247 +482,107 @@
       }
     }
 
-    // Quand on change de secteur → met à jour la liste des écoles
     function onDirSecteurChange() {
       var secteurNom = document.getElementById('dir-secteur-select').value;
       var ecoleSelect = document.getElementById('dir-ecole-select');
-
-      ecoleSelect.innerHTML = '<option value="">— Choisir une école —</option>';
-
+      document.getElementById('dir-username').value = '';
       if (!secteurNom) {
         ecoleSelect.disabled = true;
         ecoleSelect.innerHTML = '<option value="">— Choisir d\'abord un secteur —</option>';
         return;
       }
-
-      // Trouver le secteur correspondant dans allSecteurs
       var secteur = null;
       for (var i = 0; i < allSecteurs.length; i++) {
         if (allSecteurs[i].nom === secteurNom) { secteur = allSecteurs[i]; break; }
       }
-
       var ecoles = (secteur && secteur.ecoles) ? secteur.ecoles : [];
-
       if (ecoles.length === 0) {
         ecoleSelect.innerHTML = '<option value="">Aucune école dans ce secteur</option>';
         ecoleSelect.disabled = true;
-        showToast('info', 'Aucune école enregistrée pour ce secteur. Ajoutez-en dans "Gestion des Secteurs".');
+        showToast('info', 'Aucune école enregistrée pour ce secteur.');
         return;
       }
-
       ecoleSelect.disabled = false;
+      ecoleSelect.innerHTML = '<option value="">— Choisir une école —</option>';
       for (var j = 0; j < ecoles.length; j++) {
         var opt = document.createElement('option');
         opt.value = ecoles[j].nom;
         opt.textContent = ecoles[j].nom;
         ecoleSelect.appendChild(opt);
       }
+      // Auto-génère l'identifiant dès qu'un secteur est choisi
+      generateUsername();
     }
 
-    function createDirector() {
-      var secteurVal = document.getElementById('dir-secteur-select').value.trim();
-      var ecoleVal = document.getElementById('dir-ecole-select').value.trim();
-
-      // Validation des selects
-      if (!secteurVal) {
-        showToast('error', 'Veuillez choisir un secteur pédagogique');
-        return;
-      }
-      if (!ecoleVal) {
-        showToast('error', 'Veuillez choisir une école');
-        return;
-      }
-
-      var payload = {
-        username: document.getElementById('dir-username').value.trim(),
-        password: document.getElementById('dir-password').value.trim(),
-        contact1: document.getElementById('dir-contact1').value.trim(),
-        nom_directeur: document.getElementById('dir-nom').value.trim(),
-        prenoms_directeur: document.getElementById('dir-prenoms').value.trim(),
-        email: document.getElementById('dir-email').value.trim(),
-        secteur_pedagogique: secteurVal,
-        nom_ecole: ecoleVal
-      };
-
-      fetch('/api/admin/directors', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (!data.success) return showToast('error', data.error || 'Erreur création compte');
-          var box = document.getElementById('director-created-box');
-          box.classList.remove('hidden');
-          box.innerHTML = '<p class="font-bold mb-1">✅ Compte créé avec succès !</p>' +
-            '<p>Identifiant : <strong>' + esc(data.director.username) + '</strong></p>' +
-            '<p>Mot de passe : <strong>' + esc(data.temporary_password) + '</strong></p>' +
-            '<p>École : <strong>' + esc(data.director.nom_ecole) + '</strong> (' + esc(data.director.secteur_pedagogique) + ')</p>' +
-            '<p class="text-xs mt-2 text-green-600">📋 Copiez ces informations et transmettez-les au directeur.</p>';
-          // Réinitialiser le formulaire
-          ['dir-username','dir-password','dir-contact1','dir-nom','dir-prenoms','dir-email'].forEach(function(id) {
-            document.getElementById(id).value = '';
-          });
-          document.getElementById('dir-secteur-select').value = '';
-          document.getElementById('dir-ecole-select').innerHTML = '<option value="">— Choisir d\'abord un secteur —</option>';
-          document.getElementById('dir-ecole-select').disabled = true;
-          loadDirectors();
-        })
-        .catch(function() { showToast('error', 'Erreur réseau'); });
-    }
-
-    function resetDirectorPassword(id) {
-      fetch('/api/admin/directors/' + id + '/reset-password', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (!data.success) return showToast('error', data.error || 'Erreur reset');
-          alert('Nouveau mot de passe pour ' + data.director.username + ' :\n\n' + data.temporary_password + '\n\nDonnez-le au directeur.');
-          loadDirectors();
-        })
-        .catch(function() { showToast('error', 'Erreur réseau'); });
-    }
-
-    function toggleDirector(id) {
-      fetch('/api/admin/directors/' + id + '/toggle', { method: 'POST' })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (!data.success) return showToast('error', data.error || 'Erreur statut');
-          loadDirectors();
-        })
-        .catch(function() { showToast('error', 'Erreur réseau'); });
-    }
-
-    // ============ SECTEURS MANAGEMENT ============
+    // ===== SECTEURS =====
     function toggleSecteursPanel() {
       secteursPanelOpen = !secteursPanelOpen;
-      var panel = document.getElementById('secteurs-panel');
-      var toggle = document.getElementById('secteurs-toggle');
-      if (secteursPanelOpen) {
-        panel.classList.add('open');
-        toggle.textContent = '▲';
-      } else {
-        panel.classList.remove('open');
-        toggle.textContent = '▼';
-      }
+      document.getElementById('secteurs-panel').classList.toggle('open', secteursPanelOpen);
+      document.getElementById('secteurs-toggle').textContent = secteursPanelOpen ? '▲' : '▼';
     }
 
     function loadSecteurs() {
-      fetch('/api/secteurs')
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          allSecteurs = data;
-          renderSecteurs();
-          // Met à jour le select du formulaire directeur à chaque rechargement
-          populateDirSecteurSelect();
-        })
-        .catch(function(err) {
-          console.error('Erreur secteurs:', err);
-        });
+      fetch('/api/secteurs').then(function(r) { return r.json(); }).then(function(d) {
+        allSecteurs = d;
+        renderSecteurs();
+        populateDirSecteurSelect();
+      }).catch(function(e) { console.error('Erreur secteurs:', e); });
     }
 
     function renderSecteurs() {
       var container = document.getElementById('secteurs-list-container');
       document.getElementById('secteurs-count').textContent = allSecteurs.length + ' secteur(s)';
-
-      if (allSecteurs.length === 0) {
-        container.innerHTML = '<p class="text-gray-400 text-sm text-center py-4">Aucun secteur configuré</p>';
-        return;
-      }
-
+      if (allSecteurs.length === 0) { container.innerHTML = '<p class="text-gray-400 text-sm text-center py-4">Aucun secteur configuré</p>'; return; }
       var html = '';
       for (var i = 0; i < allSecteurs.length; i++) {
-        var s = allSecteurs[i];
-        var ecoles = s.ecoles || [];
-        html += '<div class="border border-gray-200 rounded-lg overflow-hidden">' +
-          '<div class="bg-purple-50 px-4 py-2 flex items-center justify-between">' +
-            '<span class="font-semibold text-purple-800 text-sm">📍 ' + esc(s.nom) + '</span>' +
-            '<div class="flex items-center gap-2">' +
-              '<span class="text-xs text-purple-500">' + ecoles.length + ' école(s)</span>' +
-              '<button data-action="delete-secteur" data-id="' + s.id + '" class="secteur-action-btn text-red-400 hover:text-red-600 text-sm cursor-pointer px-2 py-1">🗑</button>' +
-            '</div>' +
-          '</div>' +
+        var s = allSecteurs[i], ecoles = s.ecoles || [];
+        html += '<div class="border border-gray-200 rounded-lg overflow-hidden"><div class="bg-purple-50 px-4 py-2 flex items-center justify-between">' +
+          '<span class="font-semibold text-purple-800 text-sm">📍 ' + esc(s.nom) + '</span>' +
+          '<div class="flex items-center gap-2"><span class="text-xs text-purple-500">' + ecoles.length + ' école(s)</span>' +
+          '<button data-action="delete-secteur" data-id="' + s.id + '" class="secteur-action-btn text-red-400 hover:text-red-600 text-sm cursor-pointer px-2 py-1">🗑</button></div></div>' +
           '<div class="p-3 space-y-2">';
-
         if (ecoles.length > 0) {
           for (var j = 0; j < ecoles.length; j++) {
             html += '<div class="flex items-center justify-between bg-gray-50 px-3 py-1.5 rounded-lg">' +
               '<span class="text-sm text-gray-700">🏫 ' + esc(ecoles[j].nom) + '</span>' +
-              '<button data-action="delete-ecole" data-id="' + ecoles[j].id + '" class="secteur-action-btn text-red-400 hover:text-red-600 text-xs cursor-pointer px-2 py-1">✕</button>' +
-            '</div>';
+              '<button data-action="delete-ecole" data-id="' + ecoles[j].id + '" class="secteur-action-btn text-red-400 hover:text-red-600 text-xs cursor-pointer px-2 py-1">✕</button></div>';
           }
         } else {
           html += '<p class="text-xs text-gray-400 text-center py-1">Aucune école — ajoutez-en ci-dessous</p>';
         }
-
-        html += '<div class="flex gap-2 mt-2">' +
-          '<input type="text" data-secteur-id="' + s.id + '" class="new-ecole-input flex-1 px-2 py-1 border border-gray-200 rounded text-xs" placeholder="Nom de l\'école..." maxlength="200">' +
-          '<button data-action="add-ecole" data-id="' + s.id + '" class="secteur-action-btn px-3 py-1 bg-green-500 text-white rounded text-xs cursor-pointer hover:bg-green-400">+ École</button>' +
-        '</div>';
-
-        html += '</div></div>';
+        html += '<div class="flex gap-2 mt-2"><input type="text" data-secteur-id="' + s.id + '" class="new-ecole-input flex-1 px-2 py-1 border border-gray-200 rounded text-xs" placeholder="Nom de l\'école..." maxlength="200">' +
+          '<button data-action="add-ecole" data-id="' + s.id + '" class="secteur-action-btn px-3 py-1 bg-green-500 text-white rounded text-xs cursor-pointer hover:bg-green-400">+ École</button></div>' +
+          '</div></div>';
       }
       container.innerHTML = html;
     }
 
     function addSecteur() {
-      var input = document.getElementById('new-secteur-input');
-      var nom = input.value.trim();
-      if (nom.length < 2) {
-        showToast('error', 'Nom trop court (min 2 caractères)');
-        return;
-      }
-      fetch('/api/secteurs', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nom: nom })
-      })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        if (data.success) {
-          showToast('success', 'Secteur "' + nom + '" ajouté');
-          input.value = '';
-          loadSecteurs();
-        } else {
-          showToast('error', data.error || 'Erreur');
-        }
-      })
-      .catch(function() { showToast('error', 'Erreur réseau'); });
+      var input = document.getElementById('new-secteur-input'), nom = input.value.trim();
+      if (nom.length < 2) { showToast('error', 'Nom trop court (min 2 caractères)'); return; }
+      fetch('/api/secteurs', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nom: nom }) })
+        .then(function(r) { return r.json(); }).then(function(d) {
+          if (d.success) { showToast('success', 'Secteur "' + nom + '" ajouté'); input.value = ''; loadSecteurs(); }
+          else showToast('error', d.error || 'Erreur');
+        }).catch(function() { showToast('error', 'Erreur réseau'); });
     }
 
     function deleteSecteur(id) {
       if (!confirm('Supprimer ce secteur et toutes ses écoles ?')) return;
-      fetch('/api/secteurs/' + id, { method: 'DELETE' })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (data.success) {
-            showToast('success', 'Secteur supprimé');
-            loadSecteurs();
-          } else {
-            showToast('error', data.error || 'Erreur');
-          }
-        })
-        .catch(function() { showToast('error', 'Erreur réseau'); });
+      fetch('/api/secteurs/' + id, { method: 'DELETE' }).then(function(r) { return r.json(); }).then(function(d) {
+        if (d.success) { showToast('success', 'Secteur supprimé'); loadSecteurs(); } else showToast('error', d.error || 'Erreur');
+      }).catch(function() { showToast('error', 'Erreur réseau'); });
     }
 
     function addEcole(secteurId) {
       var input = document.querySelector('input.new-ecole-input[data-secteur-id="' + secteurId + '"]');
       if (!input) return;
       var nom = input.value.trim();
-      if (nom.length < 2) {
-        showToast('error', 'Nom trop court');
-        return;
-      }
-      fetch('/api/secteurs/' + secteurId + '/ecoles', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nom: nom })
-      })
-      .then(function(res) { return res.json(); })
-      .then(function(data) {
-        if (data.success) {
-          showToast('success', 'École "' + nom + '" ajoutée');
-          loadSecteurs();
-        } else {
-          showToast('error', data.error || 'Erreur');
-        }
-      })
-      .catch(function() { showToast('error', 'Erreur réseau'); });
+      if (nom.length < 2) { showToast('error', 'Nom trop court'); return; }
+      fetch('/api/secteurs/' + secteurId + '/ecoles', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ nom: nom }) })
+        .then(function(r) { return r.json(); }).then(function(d) {
+          if (d.success) { showToast('success', 'École "' + nom + '" ajoutée'); loadSecteurs(); } else showToast('error', d.error || 'Erreur');
+        }).catch(function() { showToast('error', 'Erreur réseau'); });
     }
 
     function deleteEcole(ecoleId) {
@@ -735,63 +590,25 @@
       var secteurId = null;
       for (var i = 0; i < allSecteurs.length; i++) {
         var ecoles = allSecteurs[i].ecoles || [];
-        for (var j = 0; j < ecoles.length; j++) {
-          if (ecoles[j].id === ecoleId) { secteurId = allSecteurs[i].id; break; }
-        }
+        for (var j = 0; j < ecoles.length; j++) { if (ecoles[j].id === ecoleId) { secteurId = allSecteurs[i].id; break; } }
         if (secteurId) break;
       }
       if (!secteurId) return;
-
-      fetch('/api/secteurs/' + secteurId + '/ecoles/' + ecoleId, { method: 'DELETE' })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          if (data.success) {
-            showToast('success', 'École supprimée');
-            loadSecteurs();
-          } else {
-            showToast('error', data.error || 'Erreur');
-          }
-        })
-        .catch(function() { showToast('error', 'Erreur réseau'); });
+      fetch('/api/secteurs/' + secteurId + '/ecoles/' + ecoleId, { method: 'DELETE' }).then(function(r) { return r.json(); }).then(function(d) {
+        if (d.success) { showToast('success', 'École supprimée'); loadSecteurs(); } else showToast('error', d.error || 'Erreur');
+      }).catch(function() { showToast('error', 'Erreur réseau'); });
     }
 
-    // ============ FETCH DATA ============
+    // ===== DATA =====
     function refreshData() {
-      var lotsOk = false, statsOk = false;
-      var lotsData, statsData;
-
-      fetch('/api/eleves')
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          lotsData = data;
-          lotsOk = true;
-          if (statsOk) onDataReady(lotsData, statsData);
-        })
-        .catch(function(err) {
-          console.error('Erreur fetch lots:', err);
-          document.getElementById('loading-overlay').style.display = 'none';
-          showToast('error', 'Erreur de chargement des lots');
-        });
-
-      fetch('/api/stats')
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          statsData = data;
-          statsOk = true;
-          if (lotsOk) onDataReady(lotsData, statsData);
-        })
-        .catch(function(err) {
-          console.error('Erreur fetch stats:', err);
-          document.getElementById('loading-overlay').style.display = 'none';
-          showToast('error', 'Erreur de chargement des stats');
-        });
-
+      var lotsOk = false, statsOk = false, lotsData, statsData;
+      fetch('/api/eleves').then(function(r) { return r.json(); }).then(function(d) { lotsData = d; lotsOk = true; if (statsOk) onDataReady(lotsData, statsData); })
+        .catch(function() { document.getElementById('loading-overlay').style.display = 'none'; showToast('error', 'Erreur de chargement'); });
+      fetch('/api/stats').then(function(r) { return r.json(); }).then(function(d) { statsData = d; statsOk = true; if (lotsOk) onDataReady(lotsData, statsData); })
+        .catch(function() { document.getElementById('loading-overlay').style.display = 'none'; });
       function onDataReady(lots, stats) {
-        allLots = lots;
-        allStats = stats;
-        updateStats();
-        updateFilters();
-        applyFilters();
+        allLots = lots; allStats = stats;
+        updateStats(); updateFilters(); applyFilters();
         document.getElementById('loading-overlay').style.display = 'none';
         showToast('success', 'Données mises à jour');
       }
@@ -800,170 +617,85 @@
     function getLotEleves(lot) {
       if (!lot) return [];
       if (Array.isArray(lot.eleves)) return lot.eleves;
-      if (typeof lot.eleves === 'string') {
-        try { return JSON.parse(lot.eleves || '[]'); } catch(e) { return []; }
-      }
+      if (typeof lot.eleves === 'string') { try { return JSON.parse(lot.eleves || '[]'); } catch(e) { return []; } }
       return [];
     }
 
-    // ============ UPDATE STATS ============
     function updateStats() {
       var g = (allStats.global && allStats.global[0]) || {};
       document.getElementById('stat-total').textContent = g.total_eleves || 0;
-
       var garcons = 0, filles = 0;
-      for (var i = 0; i < allLots.length; i++) {
-        var eleves = getLotEleves(allLots[i]);
-        for (var j = 0; j < eleves.length; j++) {
-          if (eleves[j].sexe === 'G' || eleves[j].sexe === 'M') garcons++;
-          else filles++;
-        }
-      }
+      for (var i = 0; i < allLots.length; i++) { var el = getLotEleves(allLots[i]); for (var j = 0; j < el.length; j++) { if (el[j].sexe === 'G' || el[j].sexe === 'M') garcons++; else filles++; } }
       document.getElementById('stat-garcons').textContent = garcons;
       document.getElementById('stat-filles').textContent = filles;
+      var sa = {}; for (var s = 0; s < allLots.length; s++) sa[allLots[s].secteur_pedagogique] = true;
+      document.getElementById('stat-secteurs').textContent = Object.keys(sa).length + '/5';
+      var ea = {}; for (var e = 0; e < allLots.length; e++) ea[allLots[e].nom_ecole] = true;
+      var nbEA = Object.keys(ea).length;
+      fetch('/api/secteurs/ecoles/count').then(function(r) { return r.json(); }).then(function(d) {
+        document.getElementById('stat-ecoles').textContent = nbEA + '/' + (d.total || 0);
+        document.getElementById('stat-ecoles-detail').textContent = (d.total || 0) + ' école(s) enregistrée(s)';
+      }).catch(function() { document.getElementById('stat-ecoles').textContent = nbEA; });
 
-      var secteursActifs = {};
-      for (var s = 0; s < allLots.length; s++) {
-        secteursActifs[allLots[s].secteur_pedagogique] = true;
-      }
-      document.getElementById('stat-secteurs').textContent = Object.keys(secteursActifs).length + '/5';
-
-      var ecolesActives = {};
-      for (var e = 0; e < allLots.length; e++) {
-        ecolesActives[allLots[e].nom_ecole] = true;
-      }
-      var nbEcolesActives = Object.keys(ecolesActives).length;
-
-      fetch('/api/secteurs/ecoles/count')
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          var totalEcoles = data.total || 0;
-          document.getElementById('stat-ecoles').textContent = nbEcolesActives + '/' + totalEcoles;
-          document.getElementById('stat-ecoles-detail').textContent = totalEcoles + ' école(s) enregistrée(s)';
-        })
-        .catch(function() {
-          document.getElementById('stat-ecoles').textContent = nbEcolesActives;
-          document.getElementById('stat-ecoles-detail').textContent = 'écoles ayant envoyé';
-        });
-
-      var secteurTable = document.getElementById('stats-secteur-table');
       var secteurs = allStats.parSecteur || [];
-      if (secteurs.length === 0) {
-        secteurTable.innerHTML = '<p class="text-gray-400 text-sm text-center py-4">Aucune donnée</p>';
-      } else {
-        var html = '<table class="w-full text-sm"><thead><tr class="text-xs text-gray-500 border-b">' +
-          '<th class="pb-2 text-left">Secteur</th><th class="pb-2 text-center">Lots</th><th class="pb-2 text-center">Élèves</th>' +
-          '</tr></thead><tbody>';
-        for (var i = 0; i < secteurs.length; i++) {
-          var sec = secteurs[i];
-          html += '<tr class="border-b border-gray-50 hover:bg-gray-50">' +
-            '<td class="py-2 font-medium">' + esc(sec.secteur_pedagogique) + '</td>' +
-            '<td class="py-2 text-center">' + sec.nb_lots + '</td>' +
-            '<td class="py-2 text-center font-semibold text-green-600">' + sec.total_eleves + '</td></tr>';
-        }
-        html += '</tbody></table>';
-        secteurTable.innerHTML = html;
+      var stEl = document.getElementById('stats-secteur-table');
+      if (!secteurs.length) { stEl.innerHTML = '<p class="text-gray-400 text-sm text-center py-4">Aucune donnée</p>'; }
+      else {
+        var h = '<table class="w-full text-sm"><thead><tr class="text-xs text-gray-500 border-b"><th class="pb-2 text-left">Secteur</th><th class="pb-2 text-center">Lots</th><th class="pb-2 text-center">Élèves</th></tr></thead><tbody>';
+        for (var i = 0; i < secteurs.length; i++) h += '<tr class="border-b border-gray-50 hover:bg-gray-50"><td class="py-2 font-medium">' + esc(secteurs[i].secteur_pedagogique) + '</td><td class="py-2 text-center">' + secteurs[i].nb_lots + '</td><td class="py-2 text-center font-semibold text-green-600">' + secteurs[i].total_eleves + '</td></tr>';
+        stEl.innerHTML = h + '</tbody></table>';
       }
 
-      var classeTable = document.getElementById('stats-classe-table');
       var classes = allStats.parClasse || [];
-      if (classes.length === 0) {
-        classeTable.innerHTML = '<p class="text-gray-400 text-sm text-center py-4">Aucune donnée</p>';
-      } else {
-        var maxVal = 0;
-        for (var i = 0; i < classes.length; i++) {
-          if (classes[i].effectif > maxVal) maxVal = classes[i].effectif;
-        }
-        var html2 = '<table class="w-full text-sm"><thead><tr class="text-xs text-gray-500 border-b">' +
-          '<th class="pb-2 text-left">Classe</th><th class="pb-2 text-center">Effectif</th><th class="pb-2 text-left">Barre</th>' +
-          '</tr></thead><tbody>';
+      var clEl = document.getElementById('stats-classe-table');
+      if (!classes.length) { clEl.innerHTML = '<p class="text-gray-400 text-sm text-center py-4">Aucune donnée</p>'; }
+      else {
+        var mx = 0; for (var i = 0; i < classes.length; i++) if (classes[i].effectif > mx) mx = classes[i].effectif;
+        var h2 = '<table class="w-full text-sm"><thead><tr class="text-xs text-gray-500 border-b"><th class="pb-2 text-left">Classe</th><th class="pb-2 text-center">Effectif</th><th class="pb-2 text-left">Barre</th></tr></thead><tbody>';
         for (var j = 0; j < classes.length; j++) {
-          var c = classes[j];
-          var pct = maxVal > 0 ? (c.effectif / maxVal * 100) : 0;
-          html2 += '<tr class="border-b border-gray-50 hover:bg-gray-50">' +
-            '<td class="py-2 font-medium">' + esc(c.classe) + '</td>' +
-            '<td class="py-2 text-center font-semibold text-blue-600">' + c.effectif + '</td>' +
-            '<td class="py-2"><div class="w-full bg-gray-100 rounded-full h-3">' +
-            '<div class="bg-blue-500 h-3 rounded-full" style="width:' + pct + '%"></div></div></td></tr>';
+          var pct = mx > 0 ? (classes[j].effectif / mx * 100) : 0;
+          h2 += '<tr class="border-b border-gray-50 hover:bg-gray-50"><td class="py-2 font-medium">' + esc(classes[j].classe) + '</td><td class="py-2 text-center font-semibold text-blue-600">' + classes[j].effectif + '</td><td class="py-2"><div class="w-full bg-gray-100 rounded-full h-3"><div class="bg-blue-500 h-3 rounded-full" style="width:' + pct + '%"></div></div></td></tr>';
         }
-        html2 += '</tbody></table>';
-        classeTable.innerHTML = html2;
+        clEl.innerHTML = h2 + '</tbody></table>';
       }
     }
 
-    // ============ FILTERS ============
     function updateFilters() {
-      var select = document.getElementById('filter-secteur');
-      var current = select.value;
-      var secteursSet = {};
-      for (var i = 0; i < allLots.length; i++) {
-        secteursSet[allLots[i].secteur_pedagogique] = true;
-      }
-      var secteurs = Object.keys(secteursSet).sort();
-      var options = '<option value="">Tous les secteurs</option>';
-      for (var j = 0; j < secteurs.length; j++) {
-        var sel = secteurs[j] === current ? ' selected' : '';
-        options += '<option value="' + esc(secteurs[j]) + '"' + sel + '>' + esc(secteurs[j]) + '</option>';
-      }
-      select.innerHTML = options;
+      var select = document.getElementById('filter-secteur'), current = select.value;
+      var ss = {}; for (var i = 0; i < allLots.length; i++) ss[allLots[i].secteur_pedagogique] = true;
+      var opts = '<option value="">Tous les secteurs</option>';
+      Object.keys(ss).sort().forEach(function(s) { opts += '<option value="' + esc(s) + '"' + (s === current ? ' selected' : '') + '>' + esc(s) + '</option>'; });
+      select.innerHTML = opts;
     }
 
-    function debounceFilter() {
-      clearTimeout(filterTimeout);
-      filterTimeout = setTimeout(applyFilters, 300);
-    }
+    function debounceFilter() { clearTimeout(filterTimeout); filterTimeout = setTimeout(applyFilters, 300); }
 
     function applyFilters() {
       var secteur = document.getElementById('filter-secteur').value;
       var ecole = document.getElementById('filter-ecole').value;
-      var dateDebut = document.getElementById('filter-dateDebut').value;
-      var dateFin = document.getElementById('filter-dateFin').value;
-
+      var dd = document.getElementById('filter-dateDebut').value;
+      var df = document.getElementById('filter-dateFin').value;
       var filtered = allLots.slice();
-      if (secteur) {
-        filtered = filtered.filter(function(l) { return l.secteur_pedagogique === secteur; });
-      }
-      if (ecole) {
-        var ecoleLower = ecole.toLowerCase();
-        filtered = filtered.filter(function(l) { return l.nom_ecole.toLowerCase().indexOf(ecoleLower) !== -1; });
-      }
-      if (dateDebut) {
-        filtered = filtered.filter(function(l) { return l.created_at >= dateDebut; });
-      }
-      if (dateFin) {
-        filtered = filtered.filter(function(l) { return l.created_at <= dateFin + ' 23:59:59'; });
-      }
+      if (secteur) filtered = filtered.filter(function(l) { return l.secteur_pedagogique === secteur; });
+      if (ecole) { var el = ecole.toLowerCase(); filtered = filtered.filter(function(l) { return l.nom_ecole.toLowerCase().indexOf(el) !== -1; }); }
+      if (dd) filtered = filtered.filter(function(l) { return l.created_at >= dd; });
+      if (df) filtered = filtered.filter(function(l) { return l.created_at <= df + ' 23:59:59'; });
       renderTable(filtered);
     }
 
     function clearFilters() {
-      document.getElementById('filter-secteur').value = '';
-      document.getElementById('filter-ecole').value = '';
-      document.getElementById('filter-dateDebut').value = '';
-      document.getElementById('filter-dateFin').value = '';
+      ['filter-secteur','filter-ecole','filter-dateDebut','filter-dateFin'].forEach(function(id) { document.getElementById(id).value = ''; });
       applyFilters();
     }
 
-    // ============ RENDER TABLE ============
     function renderTable(lots) {
       var tbody = document.getElementById('data-table-body');
       document.getElementById('table-count').textContent = lots.length;
-
-      if (lots.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-8 text-center text-gray-400">Aucun résultat</td></tr>';
-        return;
-      }
-
+      if (!lots.length) { tbody.innerHTML = '<tr><td colspan="8" class="px-4 py-8 text-center text-gray-400">Aucun résultat</td></tr>'; return; }
       var html = '';
       for (var i = 0; i < lots.length; i++) {
-        var lot = lots[i];
-        var eleves = getLotEleves(lot);
-        var date = new Date(lot.created_at).toLocaleDateString('fr-FR');
-        var garcons = 0, filles = 0;
-        for (var k = 0; k < eleves.length; k++) {
-          if (eleves[k].sexe === 'G' || eleves[k].sexe === 'M') garcons++;
-          else filles++;
-        }
+        var lot = lots[i], eleves = getLotEleves(lot), date = new Date(lot.created_at).toLocaleDateString('fr-FR'), g = 0, f = 0;
+        for (var k = 0; k < eleves.length; k++) { if (eleves[k].sexe === 'G' || eleves[k].sexe === 'M') g++; else f++; }
         html += '<tr class="hover:bg-gray-50 transition-colors">' +
           '<td class="px-4 py-3 text-gray-500 font-mono text-xs">#' + lot.id + '</td>' +
           '<td class="px-4 py-3 text-gray-600 text-xs">' + esc(date) + '</td>' +
@@ -971,340 +703,171 @@
           '<td class="px-4 py-3 font-medium text-gray-800">' + esc(lot.nom_ecole) + '</td>' +
           '<td class="px-4 py-3 text-gray-600">' + esc(lot.nom_directeur) + ' ' + esc(lot.prenoms_directeur) + '</td>' +
           '<td class="px-4 py-3 text-gray-600 text-xs">' + esc(lot.contact1) + '</td>' +
+          '<td class="px-4 py-3 text-center"><span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">' + eleves.length + '</span><div class="text-[10px] text-gray-400 mt-0.5">' + g + '♂ ' + f + '♀</div></td>' +
           '<td class="px-4 py-3 text-center">' +
-            '<span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded-full">' + eleves.length + '</span>' +
-            '<div class="text-[10px] text-gray-400 mt-0.5">' + garcons + '♂ ' + filles + '♀</div>' +
-          '</td>' +
-          '<td class="px-4 py-3 text-center">' +
-            '<button data-action="view" data-id="' + lot.id + '" class="table-action-btn px-2 py-1 text-xs bg-blue-50 text-blue-600 rounded hover:bg-blue-100 transition-colors mr-1 cursor-pointer">👁 Voir</button>' +
-            '<button data-action="delete" data-id="' + lot.id + '" class="table-action-btn px-2 py-1 text-xs bg-red-50 text-red-600 rounded hover:bg-red-100 transition-colors cursor-pointer">🗑</button>' +
+            '<button data-action="view" data-id="' + lot.id + '" class="table-action-btn px-2 py-1 text-xs bg-blue-50 text-blue-600 rounded hover:bg-blue-100 mr-1 cursor-pointer">👁 Voir</button>' +
+            '<button data-action="delete" data-id="' + lot.id + '" class="table-action-btn px-2 py-1 text-xs bg-red-50 text-red-600 rounded hover:bg-red-100 cursor-pointer">🗑</button>' +
           '</td></tr>';
       }
       tbody.innerHTML = html;
     }
 
-    // ============ VIEW DETAIL ============
     function viewDetail(id) {
       var lot = null;
-      for (var i = 0; i < allLots.length; i++) {
-        if (allLots[i].id === id) { lot = allLots[i]; break; }
-      }
+      for (var i = 0; i < allLots.length; i++) { if (allLots[i].id === id) { lot = allLots[i]; break; } }
       if (!lot) return;
-
-      var eleves = getLotEleves(lot);
-      var garcons = 0, filles = 0;
-      for (var k = 0; k < eleves.length; k++) {
-        if (eleves[k].sexe === 'G' || eleves[k].sexe === 'M') garcons++;
-        else filles++;
-      }
-
+      var eleves = getLotEleves(lot), g = 0, f = 0;
+      for (var k = 0; k < eleves.length; k++) { if (eleves[k].sexe === 'G' || eleves[k].sexe === 'M') g++; else f++; }
       document.getElementById('modal-title').textContent = 'Lot #' + lot.id + ' — ' + lot.nom_ecole;
-
-      var classesMap = {};
-      for (var j = 0; j < eleves.length; j++) {
-        var e = eleves[j];
-        if (!classesMap[e.classe]) classesMap[e.classe] = [];
-        classesMap[e.classe].push(e);
-      }
-
-      var classKeys = Object.keys(classesMap).sort();
-      var classesHtml = '';
-      for (var c = 0; c < classKeys.length; c++) {
-        var classe = classKeys[c];
-        var list = classesMap[classe];
-        classesHtml += '<div class="mb-4">' +
-          '<h4 class="font-semibold text-gray-700 text-sm bg-gray-100 rounded-lg px-3 py-2 mb-2">' +
-          '📚 ' + esc(classe) + ' <span class="text-gray-400 font-normal">(' + list.length + ')</span></h4>' +
-          '<div class="overflow-x-auto"><table class="w-full text-xs">' +
-          '<thead><tr class="text-gray-500 border-b">' +
-          '<th class="pb-1 text-left pr-2">#</th><th class="pb-1 text-left pr-2">Matricule</th><th class="pb-1 text-left pr-2">Nom</th>' +
-          '<th class="pb-1 text-left pr-2">Prénoms</th><th class="pb-1 text-center pr-2">Sexe</th>' +
-          '<th class="pb-1 text-left pr-2">Nationalité</th><th class="pb-1 text-left pr-2">Naissance</th><th class="pb-1 text-left pr-2">Père</th>' +
-          '<th class="pb-1 text-left pr-2">N° Père</th><th class="pb-1 text-left pr-2">Pièce Père</th><th class="pb-1 text-left pr-2">Mère</th>' +
-          '<th class="pb-1 text-left pr-2">N° Mère</th><th class="pb-1 text-left pr-2">Pièce Mère</th><th class="pb-1 text-left pr-2">N° Témoin</th><th class="pb-1 text-left">Pièce Témoin</th></tr></thead><tbody>';
-
-        for (var e2 = 0; e2 < list.length; e2++) {
-          var el = list[e2];
-          classesHtml += '<tr class="border-b border-gray-50">' +
-            '<td class="py-1.5 text-gray-400">' + (e2 + 1) + '</td>' +
-            '<td class="py-1.5 text-gray-500">' + esc(el.matricule || '') + '</td>' +
-            '<td class="py-1.5 font-medium">' + esc(el.nom) + '</td>' +
-            '<td class="py-1.5">' + esc(el.prenoms) + '</td>' +
-            '<td class="py-1.5 text-center">' + ((el.sexe === 'G' || el.sexe === 'M') ? 'Garçon' : 'Fille') + '</td>' +
-            '<td class="py-1.5 text-gray-500">' + esc(el.nationalite || '') + '</td>' +
-            '<td class="py-1.5 text-gray-500">' + esc(el.date_naissance_probable) + '</td>' +
-            '<td class="py-1.5">' + esc(el.nom_pere) + '</td>' +
-            '<td class="py-1.5 text-gray-500">' + esc(el.numero_pere) + '</td>' +
-            '<td class="py-1.5 text-gray-500">' + esc(el.cni_pere || '') + '</td>' +
-            '<td class="py-1.5">' + esc(el.nom_mere) + '</td>' +
-            '<td class="py-1.5 text-gray-500">' + esc(el.numero_mere) + '</td>' +
-            '<td class="py-1.5 text-gray-500">' + esc(el.cni_mere || '') + '</td>' +
-            '<td class="py-1.5 text-gray-500">' + esc(el.numero_temoin) + '</td>' +
-            '<td class="py-1.5 text-gray-500">' + esc(el.cni_temoin || '') + '</td></tr>';
+      var cm = {};
+      for (var j = 0; j < eleves.length; j++) { var e = eleves[j]; if (!cm[e.classe]) cm[e.classe] = []; cm[e.classe].push(e); }
+      var ch = '';
+      Object.keys(cm).sort().forEach(function(classe) {
+        var list = cm[classe];
+        ch += '<div class="mb-4"><h4 class="font-semibold text-gray-700 text-sm bg-gray-100 rounded-lg px-3 py-2 mb-2">📚 ' + esc(classe) + ' <span class="text-gray-400 font-normal">(' + list.length + ')</span></h4><div class="overflow-x-auto"><table class="w-full text-xs"><thead><tr class="text-gray-500 border-b"><th class="pb-1 text-left pr-2">#</th><th class="pb-1 text-left pr-2">Matricule</th><th class="pb-1 text-left pr-2">Nom</th><th class="pb-1 text-left pr-2">Prénoms</th><th class="pb-1 text-center pr-2">Sexe</th><th class="pb-1 text-left pr-2">Nationalité</th><th class="pb-1 text-left pr-2">Naissance</th><th class="pb-1 text-left pr-2">Père</th><th class="pb-1 text-left pr-2">N° Père</th><th class="pb-1 text-left pr-2">Pièce Père</th><th class="pb-1 text-left pr-2">Mère</th><th class="pb-1 text-left pr-2">N° Mère</th><th class="pb-1 text-left pr-2">Pièce Mère</th><th class="pb-1 text-left pr-2">N° Témoin</th><th class="pb-1 text-left">Pièce Témoin</th></tr></thead><tbody>';
+        for (var n = 0; n < list.length; n++) {
+          var el = list[n];
+          ch += '<tr class="border-b border-gray-50"><td class="py-1.5 text-gray-400">' + (n+1) + '</td><td class="py-1.5 text-gray-500">' + esc(el.matricule||'') + '</td><td class="py-1.5 font-medium">' + esc(el.nom) + '</td><td class="py-1.5">' + esc(el.prenoms) + '</td><td class="py-1.5 text-center">' + ((el.sexe==='G'||el.sexe==='M')?'Garçon':'Fille') + '</td><td class="py-1.5 text-gray-500">' + esc(el.nationalite||'') + '</td><td class="py-1.5 text-gray-500">' + esc(el.date_naissance_probable) + '</td><td class="py-1.5">' + esc(el.nom_pere) + '</td><td class="py-1.5 text-gray-500">' + esc(el.numero_pere) + '</td><td class="py-1.5 text-gray-500">' + esc(el.cni_pere||'') + '</td><td class="py-1.5">' + esc(el.nom_mere) + '</td><td class="py-1.5 text-gray-500">' + esc(el.numero_mere) + '</td><td class="py-1.5 text-gray-500">' + esc(el.cni_mere||'') + '</td><td class="py-1.5 text-gray-500">' + esc(el.numero_temoin) + '</td><td class="py-1.5 text-gray-500">' + esc(el.cni_temoin||'') + '</td></tr>';
         }
-        classesHtml += '</tbody></table></div></div>';
-      }
-
+        ch += '</tbody></table></div></div>';
+      });
       document.getElementById('modal-content').innerHTML =
-        '<div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-5">' +
-          '<div class="bg-green-50 rounded-lg p-3 text-center"><p class="text-2xl font-bold text-green-600">' + eleves.length + '</p><p class="text-xs text-green-500">Total élèves</p></div>' +
-          '<div class="bg-blue-50 rounded-lg p-3 text-center"><p class="text-2xl font-bold text-blue-600">' + garcons + '</p><p class="text-xs text-blue-500">Garçons</p></div>' +
-          '<div class="bg-pink-50 rounded-lg p-3 text-center"><p class="text-2xl font-bold text-pink-600">' + filles + '</p><p class="text-xs text-pink-500">Filles</p></div>' +
-        '</div>' +
-        '<div class="bg-gray-50 rounded-lg p-3 mb-5 text-sm"><div class="grid grid-cols-2 gap-2">' +
-          '<div><span class="text-gray-500">Secteur:</span> <strong>' + esc(lot.secteur_pedagogique) + '</strong></div>' +
-          '<div><span class="text-gray-500">École:</span> <strong>' + esc(lot.nom_ecole) + '</strong></div>' +
-          '<div><span class="text-gray-500">Directeur:</span> <strong>' + esc(lot.nom_directeur) + ' ' + esc(lot.prenoms_directeur) + '</strong></div>' +
-          '<div><span class="text-gray-500">Contact:</span> <strong>' + esc(lot.contact1) + '</strong></div>' +
-          '<div><span class="text-gray-500">DRENAET:</span> <strong>' + esc(lot.drenaet) + '</strong></div>' +
-          '<div><span class="text-gray-500">IEPP:</span> <strong>' + esc(lot.iepp) + '</strong></div>' +
-        '</div></div>' +
-        classesHtml;
-
+        '<div class="grid grid-cols-3 gap-3 mb-5"><div class="bg-green-50 rounded-lg p-3 text-center"><p class="text-2xl font-bold text-green-600">' + eleves.length + '</p><p class="text-xs text-green-500">Total élèves</p></div><div class="bg-blue-50 rounded-lg p-3 text-center"><p class="text-2xl font-bold text-blue-600">' + g + '</p><p class="text-xs text-blue-500">Garçons</p></div><div class="bg-pink-50 rounded-lg p-3 text-center"><p class="text-2xl font-bold text-pink-600">' + f + '</p><p class="text-xs text-pink-500">Filles</p></div></div>' +
+        '<div class="bg-gray-50 rounded-lg p-3 mb-5 text-sm"><div class="grid grid-cols-2 gap-2"><div><span class="text-gray-500">Secteur:</span> <strong>' + esc(lot.secteur_pedagogique) + '</strong></div><div><span class="text-gray-500">École:</span> <strong>' + esc(lot.nom_ecole) + '</strong></div><div><span class="text-gray-500">Directeur:</span> <strong>' + esc(lot.nom_directeur) + ' ' + esc(lot.prenoms_directeur) + '</strong></div><div><span class="text-gray-500">Contact:</span> <strong>' + esc(lot.contact1) + '</strong></div><div><span class="text-gray-500">DRENAET:</span> <strong>' + esc(lot.drenaet) + '</strong></div><div><span class="text-gray-500">IEPP:</span> <strong>' + esc(lot.iepp) + '</strong></div></div></div>' + ch;
       var modal = document.getElementById('detail-modal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
+      modal.classList.remove('hidden'); modal.classList.add('flex');
     }
 
     function closeModal() {
       var modal = document.getElementById('detail-modal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+      modal.classList.add('hidden'); modal.classList.remove('flex');
     }
 
-    // ============ DELETE ============
     function deleteLot(id) {
       if (!confirm('Supprimer le lot #' + id + ' ? Cette action est irréversible.')) return;
-      fetch('/api/eleves/' + id, { method: 'DELETE' })
-        .then(function(res) {
-          if (res.ok) {
-            showToast('success', 'Lot supprimé');
-            refreshData();
-          } else {
-            return res.json().then(function(data) {
-              showToast('error', data.error || 'Erreur de suppression');
-            });
-          }
-        })
-        .catch(function() { showToast('error', 'Erreur réseau'); });
+      fetch('/api/eleves/' + id, { method: 'DELETE' }).then(function(r) {
+        if (r.ok) { showToast('success', 'Lot supprimé'); refreshData(); }
+        else r.json().then(function(d) { showToast('error', d.error || 'Erreur'); });
+      }).catch(function() { showToast('error', 'Erreur réseau'); });
     }
 
-    // ============ EXPORT EXCEL ============
     function exportExcel() {
-      if (allLots.length === 0) {
-        showToast('info', 'Aucune donnée à exporter');
-        return;
-      }
-      if (typeof XLSX === 'undefined') {
-        showToast('error', 'Bibliothèque Excel non chargée. Rechargez la page.');
-        return;
-      }
-
+      if (!allLots.length) { showToast('info', 'Aucune donnée à exporter'); return; }
+      if (typeof XLSX === 'undefined') { showToast('error', 'Bibliothèque Excel non chargée.'); return; }
       var rows = [];
       for (var i = 0; i < allLots.length; i++) {
-        var lot = allLots[i];
-        var eleves = getLotEleves(lot);
+        var lot = allLots[i], eleves = getLotEleves(lot);
         for (var j = 0; j < eleves.length; j++) {
           var eleve = eleves[j];
-          rows.push({
-            'ID Lot': lot.id,
-            'Date': new Date(lot.created_at).toLocaleDateString('fr-FR'),
-            'DRENAET': lot.drenaet,
-            'IEPP': lot.iepp,
-            'Secteur': lot.secteur_pedagogique,
-            'École': lot.nom_ecole,
-            'Directeur': lot.nom_directeur + ' ' + lot.prenoms_directeur,
-            'Contact 1': lot.contact1,
-            'Contact 2': lot.contact2,
-            'Email': lot.email,
-            'Nom Élève': eleve.nom,
-            'Prénoms': eleve.prenoms,
-            'Matricule / Identifiant': eleve.matricule || '',
-            'Sexe': (eleve.sexe === 'G' || eleve.sexe === 'M') ? 'Garçon' : 'Fille',
-            'Nationalité': eleve.nationalite || '',
-            'Date Naissance': eleve.date_naissance_probable,
-            'Classe': eleve.classe,
-            'Nom Père': eleve.nom_pere,
-            'N° Père': eleve.numero_pere,
-            'CNI/Pièce Père': eleve.cni_pere || '',
-            'Nom Mère': eleve.nom_mere,
-            'N° Mère': eleve.numero_mere,
-            'CNI/Pièce Mère': eleve.cni_mere || '',
-            'Nom Témoin': eleve.nom_temoin,
-            'N° Témoin': eleve.numero_temoin,
-            'CNI/Pièce Témoin': eleve.cni_temoin || ''
-          });
+          rows.push({ 'ID Lot': lot.id, 'Date': new Date(lot.created_at).toLocaleDateString('fr-FR'), 'DRENAET': lot.drenaet, 'IEPP': lot.iepp, 'Secteur': lot.secteur_pedagogique, 'École': lot.nom_ecole, 'Directeur': lot.nom_directeur + ' ' + lot.prenoms_directeur, 'Contact 1': lot.contact1, 'Contact 2': lot.contact2, 'Email': lot.email, 'Nom Élève': eleve.nom, 'Prénoms': eleve.prenoms, 'Matricule': eleve.matricule || '', 'Sexe': (eleve.sexe==='G'||eleve.sexe==='M')?'Garçon':'Fille', 'Nationalité': eleve.nationalite || '', 'Date Naissance': eleve.date_naissance_probable, 'Classe': eleve.classe, 'Nom Père': eleve.nom_pere, 'N° Père': eleve.numero_pere, 'CNI Père': eleve.cni_pere || '', 'Nom Mère': eleve.nom_mere, 'N° Mère': eleve.numero_mere, 'CNI Mère': eleve.cni_mere || '', 'Nom Témoin': eleve.nom_temoin, 'N° Témoin': eleve.numero_temoin, 'CNI Témoin': eleve.cni_temoin || '' });
         }
       }
-
-      var ws = XLSX.utils.json_to_sheet(rows);
-      var wb = XLSX.utils.book_new();
+      var ws = XLSX.utils.json_to_sheet(rows), wb = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(wb, ws, 'Élèves ACESE');
       XLSX.writeFile(wb, 'ACESE_IEPP_GRABO_' + new Date().toISOString().split('T')[0] + '.xlsx');
       showToast('success', 'Export de ' + rows.length + ' lignes réussi');
     }
 
-    // ============ EVENT DELEGATION ============
+    // ===== EVENT DELEGATION =====
     document.addEventListener('click', function(e) {
       var btn = e.target.closest('.table-action-btn');
       if (btn) {
-        var action = btn.getAttribute('data-action');
-        var id = parseInt(btn.getAttribute('data-id'));
+        var action = btn.getAttribute('data-action'), id = parseInt(btn.getAttribute('data-id'));
         if (action === 'view') viewDetail(id);
         else if (action === 'delete') deleteLot(id);
         return;
       }
-
       btn = e.target.closest('.secteur-action-btn');
       if (btn) {
-        var action = btn.getAttribute('data-action');
-        var id = parseInt(btn.getAttribute('data-id'));
+        var action = btn.getAttribute('data-action'), id = parseInt(btn.getAttribute('data-id'));
         if (action === 'delete-secteur') deleteSecteur(id);
         else if (action === 'add-ecole') addEcole(id);
         else if (action === 'delete-ecole') deleteEcole(id);
         return;
       }
-
       btn = e.target.closest('.director-action-btn');
       if (btn) {
-        var dAction = btn.getAttribute('data-action');
-        var dId = parseInt(btn.getAttribute('data-id'));
+        var dAction = btn.getAttribute('data-action'), dId = parseInt(btn.getAttribute('data-id'));
         if (dAction === 'reset-director') resetDirectorPassword(dId);
         else if (dAction === 'toggle-director') toggleDirector(dId);
+        else if (dAction === 'delete-director') deleteDirector(dId, btn.getAttribute('data-username'));
         return;
       }
     });
 
-    // ============ DOM READY ============
+    // ===== DOM READY =====
     document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('btn-refresh').addEventListener('click', refreshData);
       document.getElementById('btn-export').addEventListener('click', exportExcel);
       document.getElementById('btn-clear-filters').addEventListener('click', clearFilters);
       document.getElementById('btn-close-modal').addEventListener('click', closeModal);
-
-      document.getElementById('detail-modal').addEventListener('click', function(e) {
-        if (e.target === this) closeModal();
-      });
-
+      document.getElementById('detail-modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
       document.getElementById('filter-secteur').addEventListener('change', applyFilters);
       document.getElementById('filter-ecole').addEventListener('input', debounceFilter);
       document.getElementById('filter-dateDebut').addEventListener('change', applyFilters);
       document.getElementById('filter-dateFin').addEventListener('change', applyFilters);
-
       document.getElementById('btn-backup').addEventListener('click', downloadBackup);
       document.getElementById('btn-backup-download').addEventListener('click', downloadBackup);
       document.getElementById('btn-backup-restore').addEventListener('click', restoreBackup);
       document.getElementById('backup-header').addEventListener('click', function() {
-        var panel = document.getElementById('backup-panel');
-        var toggle = document.getElementById('backup-toggle');
-        if (panel.classList.contains('open')) {
-          panel.classList.remove('open');
-          toggle.textContent = '▼';
-        } else {
-          panel.classList.add('open');
-          toggle.textContent = '▲';
-        }
+        var panel = document.getElementById('backup-panel'), open = panel.classList.toggle('open');
+        document.getElementById('backup-toggle').textContent = open ? '▲' : '▼';
       });
-
       document.getElementById('contacts-header').addEventListener('click', toggleContactsPanel);
       document.getElementById('btn-save-contacts').addEventListener('click', saveContacts);
-
       document.getElementById('directors-header').addEventListener('click', toggleDirectorsPanel);
       document.getElementById('btn-create-director').addEventListener('click', createDirector);
-
-      // ← NOUVEAU : écoute le changement de secteur pour mettre à jour les écoles
+      document.getElementById('btn-gen-username').addEventListener('click', generateUsername);
       document.getElementById('dir-secteur-select').addEventListener('change', onDirSecteurChange);
-
       document.getElementById('secteurs-header').addEventListener('click', toggleSecteursPanel);
       document.getElementById('btn-add-secteur').addEventListener('click', addSecteur);
-      document.getElementById('new-secteur-input').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') addSecteur();
-      });
-
-      loadContacts();
-      loadSecteurs();  // ← charge les secteurs ET peuple le select directeur
-      loadDirectors();
-      refreshData();
+      document.getElementById('new-secteur-input').addEventListener('keypress', function(e) { if (e.key === 'Enter') addSecteur(); });
+      loadContacts(); loadSecteurs(); loadDirectors(); refreshData();
     });
 
-    // ============ BACKUP / RESTORE ============
+    // ===== BACKUP =====
     function downloadBackup() {
-      fetch('/api/backup/download')
-        .then(function(res) { return res.blob(); })
-        .then(function(blob) {
-          var url = window.URL.createObjectURL(blob);
-          var a = document.createElement('a');
-          a.href = url;
-          a.download = 'ACESE_backup_' + new Date().toISOString().split('T')[0] + '.json';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-          window.URL.revokeObjectURL(url);
-          showToast('success', 'Sauvegarde téléchargée ! Conservez ce fichier précieusement.');
-        })
-        .catch(function() {
-          showToast('error', 'Erreur lors du téléchargement de la sauvegarde');
-        });
+      fetch('/api/backup/download').then(function(r) { return r.blob(); }).then(function(blob) {
+        var url = window.URL.createObjectURL(blob), a = document.createElement('a');
+        a.href = url; a.download = 'ACESE_backup_' + new Date().toISOString().split('T')[0] + '.json';
+        document.body.appendChild(a); a.click(); document.body.removeChild(a); window.URL.revokeObjectURL(url);
+        showToast('success', 'Sauvegarde téléchargée !');
+      }).catch(function() { showToast('error', 'Erreur téléchargement sauvegarde'); });
     }
 
     function restoreBackup() {
-      var input = document.createElement('input');
-      input.type = 'file';
-      input.accept = '.json';
+      var input = document.createElement('input'); input.type = 'file'; input.accept = '.json';
       input.onchange = function() {
-        var file = input.files[0];
-        if (!file) return;
+        var file = input.files[0]; if (!file) return;
         if (!confirm('⚠️ ATTENTION : Restaurer une sauvegarde REMPLACERA toutes les données actuelles. Continuer ?')) return;
         var reader = new FileReader();
         reader.onload = function(e) {
           try {
             var backup = JSON.parse(e.target.result);
-            fetch('/api/backup/restore', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(backup)
-            })
-            .then(function(res) { return res.json(); })
-            .then(function(data) {
-              if (data.success) {
-                showToast('success', 'Sauvegarde restaurée ! ' + data.lots_restored + ' lots récupérés.');
-                refreshData();
-              } else {
-                showToast('error', data.error || 'Erreur de restauration');
-              }
-            })
-            .catch(function() { showToast('error', 'Erreur réseau'); });
-          } catch (err) {
-            showToast('error', 'Fichier de sauvegarde invalide');
-          }
+            fetch('/api/backup/restore', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(backup) })
+              .then(function(r) { return r.json(); }).then(function(d) {
+                if (d.success) { showToast('success', 'Restaurée ! ' + d.lots_restored + ' lots récupérés.'); refreshData(); }
+                else showToast('error', d.error || 'Erreur restauration');
+              }).catch(function() { showToast('error', 'Erreur réseau'); });
+          } catch(err) { showToast('error', 'Fichier invalide'); }
         };
         reader.readAsText(file);
       };
       input.click();
     }
 
-    // ============ KEEP-ALIVE ============
+    // ===== KEEP-ALIVE =====
     setInterval(function() {
-      fetch('/api/ping')
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-          var el = document.getElementById('keepalive-status');
-          if (el) {
-            el.textContent = '⏰ Keep-alive actif';
-            el.className = 'text-[10px] bg-green-400/30 text-green-100 px-2 py-1 rounded-full';
-          }
-        })
-        .catch(function() {
-          var el = document.getElementById('keepalive-status');
-          if (el) {
-            el.textContent = '⚠️ Keep-alive échoué';
-            el.className = 'text-[10px] bg-red-400/30 text-red-100 px-2 py-1 rounded-full';
-          }
-        });
+      fetch('/api/ping').then(function(r) { return r.json(); }).then(function() {
+        var el = document.getElementById('keepalive-status');
+        if (el) { el.textContent = '⏰ Keep-alive actif'; el.className = 'text-[10px] bg-green-400/30 text-green-100 px-2 py-1 rounded-full'; }
+      }).catch(function() {
+        var el = document.getElementById('keepalive-status');
+        if (el) { el.textContent = '⚠️ Keep-alive échoué'; el.className = 'text-[10px] bg-red-400/30 text-red-100 px-2 py-1 rounded-full'; }
+      });
     }, 13 * 60 * 1000);
-
     setInterval(refreshData, 5 * 60 * 1000);
   </script>
-  <center> Console Admin - Propulsé pa Dj3k S3ph1r0th
+  <center>Console Admin - Propulsé par Dj3k S3ph1r0th</center>
 </body>
 </html>
