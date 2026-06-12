@@ -197,6 +197,8 @@
             <p class="font-semibold mb-1">Principe</p>
             <p>Crée un identifiant et un mot de passe temporaire, puis communique-les au directeur. Sa configuration sera automatique à la première connexion.</p>
           </div>
+
+          <!-- ============ FORMULAIRE MODIFIÉ ============ -->
           <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
             <input id="dir-username" type="text" placeholder="Identifiant (ex: EPPGNATO01)" class="px-3 py-2 border border-gray-300 rounded-lg text-sm uppercase">
             <input id="dir-password" type="text" placeholder="Mot de passe (vide = généré)" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
@@ -204,10 +206,27 @@
             <input id="dir-nom" type="text" placeholder="Nom directeur" class="px-3 py-2 border border-gray-300 rounded-lg text-sm uppercase">
             <input id="dir-prenoms" type="text" placeholder="Prénoms directeur" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
             <input id="dir-email" type="text" placeholder="Email (facultatif)" class="px-3 py-2 border border-gray-300 rounded-lg text-sm">
-            <input id="dir-secteur" type="text" placeholder="Secteur" class="px-3 py-2 border border-gray-300 rounded-lg text-sm uppercase">
-            <input id="dir-ecole" type="text" placeholder="École" class="px-3 py-2 border border-gray-300 rounded-lg text-sm uppercase">
+
+            <!-- SELECT SECTEUR (remplace l'input texte) -->
+            <div class="flex flex-col gap-1">
+              <select id="dir-secteur-select" class="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:border-slate-500">
+                <option value="">— Choisir un secteur —</option>
+              </select>
+              <p class="text-[10px] text-gray-400 pl-1">Secteur pédagogique</p>
+            </div>
+
+            <!-- SELECT ÉCOLE (remplace l'input texte, se met à jour selon le secteur) -->
+            <div class="flex flex-col gap-1">
+              <select id="dir-ecole-select" class="px-3 py-2 border border-gray-300 rounded-lg text-sm bg-white focus:border-slate-500" disabled>
+                <option value="">— Choisir d'abord un secteur —</option>
+              </select>
+              <p class="text-[10px] text-gray-400 pl-1">École rattachée</p>
+            </div>
+
             <button id="btn-create-director" class="px-4 py-2 bg-slate-800 text-white rounded-lg text-sm font-medium hover:bg-slate-700 transition-colors cursor-pointer">+ Créer le compte</button>
           </div>
+          <!-- ============ FIN FORMULAIRE MODIFIÉ ============ -->
+
           <div id="director-created-box" class="hidden bg-green-50 border border-green-200 rounded-lg p-4 text-sm text-green-800"></div>
           <div id="directors-list" class="space-y-2">
             <p class="text-gray-400 text-sm text-center py-4">Chargement...</p>
@@ -452,7 +471,73 @@
       container.innerHTML = html;
     }
 
+    // ============ NOUVEAU : Remplissage des selects secteur/école ============
+
+    // Appelé après loadSecteurs() — peuple le <select> secteur du formulaire directeur
+    function populateDirSecteurSelect() {
+      var select = document.getElementById('dir-secteur-select');
+      var current = select.value;
+      select.innerHTML = '<option value="">— Choisir un secteur —</option>';
+      for (var i = 0; i < allSecteurs.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = allSecteurs[i].nom;
+        opt.textContent = allSecteurs[i].nom;
+        if (allSecteurs[i].nom === current) opt.selected = true;
+        select.appendChild(opt);
+      }
+    }
+
+    // Quand on change de secteur → met à jour la liste des écoles
+    function onDirSecteurChange() {
+      var secteurNom = document.getElementById('dir-secteur-select').value;
+      var ecoleSelect = document.getElementById('dir-ecole-select');
+
+      ecoleSelect.innerHTML = '<option value="">— Choisir une école —</option>';
+
+      if (!secteurNom) {
+        ecoleSelect.disabled = true;
+        ecoleSelect.innerHTML = '<option value="">— Choisir d\'abord un secteur —</option>';
+        return;
+      }
+
+      // Trouver le secteur correspondant dans allSecteurs
+      var secteur = null;
+      for (var i = 0; i < allSecteurs.length; i++) {
+        if (allSecteurs[i].nom === secteurNom) { secteur = allSecteurs[i]; break; }
+      }
+
+      var ecoles = (secteur && secteur.ecoles) ? secteur.ecoles : [];
+
+      if (ecoles.length === 0) {
+        ecoleSelect.innerHTML = '<option value="">Aucune école dans ce secteur</option>';
+        ecoleSelect.disabled = true;
+        showToast('info', 'Aucune école enregistrée pour ce secteur. Ajoutez-en dans "Gestion des Secteurs".');
+        return;
+      }
+
+      ecoleSelect.disabled = false;
+      for (var j = 0; j < ecoles.length; j++) {
+        var opt = document.createElement('option');
+        opt.value = ecoles[j].nom;
+        opt.textContent = ecoles[j].nom;
+        ecoleSelect.appendChild(opt);
+      }
+    }
+
     function createDirector() {
+      var secteurVal = document.getElementById('dir-secteur-select').value.trim();
+      var ecoleVal = document.getElementById('dir-ecole-select').value.trim();
+
+      // Validation des selects
+      if (!secteurVal) {
+        showToast('error', 'Veuillez choisir un secteur pédagogique');
+        return;
+      }
+      if (!ecoleVal) {
+        showToast('error', 'Veuillez choisir une école');
+        return;
+      }
+
       var payload = {
         username: document.getElementById('dir-username').value.trim(),
         password: document.getElementById('dir-password').value.trim(),
@@ -460,17 +545,28 @@
         nom_directeur: document.getElementById('dir-nom').value.trim(),
         prenoms_directeur: document.getElementById('dir-prenoms').value.trim(),
         email: document.getElementById('dir-email').value.trim(),
-        secteur_pedagogique: document.getElementById('dir-secteur').value.trim(),
-        nom_ecole: document.getElementById('dir-ecole').value.trim()
+        secteur_pedagogique: secteurVal,
+        nom_ecole: ecoleVal
       };
+
       fetch('/api/admin/directors', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
         .then(function(res) { return res.json(); })
         .then(function(data) {
           if (!data.success) return showToast('error', data.error || 'Erreur création compte');
           var box = document.getElementById('director-created-box');
           box.classList.remove('hidden');
-          box.innerHTML = '<p class="font-bold mb-1">Compte créé</p><p>Identifiant: <strong>' + esc(data.director.username) + '</strong></p><p>Mot de passe: <strong>' + esc(data.temporary_password) + '</strong></p><p class="text-xs mt-2">Copiez ces informations et donnez-les au directeur.</p>';
-          ['dir-username','dir-password','dir-contact1','dir-nom','dir-prenoms','dir-email','dir-secteur','dir-ecole'].forEach(function(id) { document.getElementById(id).value = ''; });
+          box.innerHTML = '<p class="font-bold mb-1">✅ Compte créé avec succès !</p>' +
+            '<p>Identifiant : <strong>' + esc(data.director.username) + '</strong></p>' +
+            '<p>Mot de passe : <strong>' + esc(data.temporary_password) + '</strong></p>' +
+            '<p>École : <strong>' + esc(data.director.nom_ecole) + '</strong> (' + esc(data.director.secteur_pedagogique) + ')</p>' +
+            '<p class="text-xs mt-2 text-green-600">📋 Copiez ces informations et transmettez-les au directeur.</p>';
+          // Réinitialiser le formulaire
+          ['dir-username','dir-password','dir-contact1','dir-nom','dir-prenoms','dir-email'].forEach(function(id) {
+            document.getElementById(id).value = '';
+          });
+          document.getElementById('dir-secteur-select').value = '';
+          document.getElementById('dir-ecole-select').innerHTML = '<option value="">— Choisir d\'abord un secteur —</option>';
+          document.getElementById('dir-ecole-select').disabled = true;
           loadDirectors();
         })
         .catch(function() { showToast('error', 'Erreur réseau'); });
@@ -517,6 +613,8 @@
         .then(function(data) {
           allSecteurs = data;
           renderSecteurs();
+          // Met à jour le select du formulaire directeur à chaque rechargement
+          populateDirSecteurSelect();
         })
         .catch(function(err) {
           console.error('Erreur secteurs:', err);
@@ -634,7 +732,6 @@
 
     function deleteEcole(ecoleId) {
       if (!confirm('Supprimer cette école ?')) return;
-      // Find secteur_id from allSecteurs
       var secteurId = null;
       for (var i = 0; i < allSecteurs.length; i++) {
         var ecoles = allSecteurs[i].ecoles || [];
@@ -714,7 +811,6 @@
       var g = (allStats.global && allStats.global[0]) || {};
       document.getElementById('stat-total').textContent = g.total_eleves || 0;
 
-      // Count garçons/filles from all lots
       var garcons = 0, filles = 0;
       for (var i = 0; i < allLots.length; i++) {
         var eleves = getLotEleves(allLots[i]);
@@ -726,22 +822,18 @@
       document.getElementById('stat-garcons').textContent = garcons;
       document.getElementById('stat-filles').textContent = filles;
 
-      // Secteurs actifs (qui ont envoyé au moins 1 lot) sur 5
       var secteursActifs = {};
       for (var s = 0; s < allLots.length; s++) {
         secteursActifs[allLots[s].secteur_pedagogique] = true;
       }
-      var nbSecteursActifs = Object.keys(secteursActifs).length;
-      document.getElementById('stat-secteurs').textContent = nbSecteursActifs + '/5';
+      document.getElementById('stat-secteurs').textContent = Object.keys(secteursActifs).length + '/5';
 
-      // Écoles actives (qui ont envoyé au moins 1 lot) vs total enregistré
       var ecolesActives = {};
       for (var e = 0; e < allLots.length; e++) {
         ecolesActives[allLots[e].nom_ecole] = true;
       }
       var nbEcolesActives = Object.keys(ecolesActives).length;
 
-      // Récupérer le total d'écoles enregistrées
       fetch('/api/secteurs/ecoles/count')
         .then(function(res) { return res.json(); })
         .then(function(data) {
@@ -763,11 +855,11 @@
           '<th class="pb-2 text-left">Secteur</th><th class="pb-2 text-center">Lots</th><th class="pb-2 text-center">Élèves</th>' +
           '</tr></thead><tbody>';
         for (var i = 0; i < secteurs.length; i++) {
-          var s = secteurs[i];
+          var sec = secteurs[i];
           html += '<tr class="border-b border-gray-50 hover:bg-gray-50">' +
-            '<td class="py-2 font-medium">' + esc(s.secteur_pedagogique) + '</td>' +
-            '<td class="py-2 text-center">' + s.nb_lots + '</td>' +
-            '<td class="py-2 text-center font-semibold text-green-600">' + s.total_eleves + '</td></tr>';
+            '<td class="py-2 font-medium">' + esc(sec.secteur_pedagogique) + '</td>' +
+            '<td class="py-2 text-center">' + sec.nb_lots + '</td>' +
+            '<td class="py-2 text-center font-semibold text-green-600">' + sec.total_eleves + '</td></tr>';
         }
         html += '</tbody></table>';
         secteurTable.innerHTML = html;
@@ -1052,7 +1144,7 @@
       showToast('success', 'Export de ' + rows.length + ' lignes réussi');
     }
 
-    // ============ EVENT DELEGATION (sécurisé, pas de onclick inline) ============
+    // ============ EVENT DELEGATION ============
     document.addEventListener('click', function(e) {
       var btn = e.target.closest('.table-action-btn');
       if (btn) {
@@ -1085,24 +1177,20 @@
 
     // ============ DOM READY ============
     document.addEventListener('DOMContentLoaded', function() {
-      // Header buttons
       document.getElementById('btn-refresh').addEventListener('click', refreshData);
       document.getElementById('btn-export').addEventListener('click', exportExcel);
       document.getElementById('btn-clear-filters').addEventListener('click', clearFilters);
       document.getElementById('btn-close-modal').addEventListener('click', closeModal);
 
-      // Modal click-outside
       document.getElementById('detail-modal').addEventListener('click', function(e) {
         if (e.target === this) closeModal();
       });
 
-      // Filters
       document.getElementById('filter-secteur').addEventListener('change', applyFilters);
       document.getElementById('filter-ecole').addEventListener('input', debounceFilter);
       document.getElementById('filter-dateDebut').addEventListener('change', applyFilters);
       document.getElementById('filter-dateFin').addEventListener('change', applyFilters);
 
-      // Backup / Restore
       document.getElementById('btn-backup').addEventListener('click', downloadBackup);
       document.getElementById('btn-backup-download').addEventListener('click', downloadBackup);
       document.getElementById('btn-backup-restore').addEventListener('click', restoreBackup);
@@ -1118,24 +1206,23 @@
         }
       });
 
-      // Contacts management
       document.getElementById('contacts-header').addEventListener('click', toggleContactsPanel);
       document.getElementById('btn-save-contacts').addEventListener('click', saveContacts);
 
-      // Directors management
       document.getElementById('directors-header').addEventListener('click', toggleDirectorsPanel);
       document.getElementById('btn-create-director').addEventListener('click', createDirector);
 
-      // Secteurs management
+      // ← NOUVEAU : écoute le changement de secteur pour mettre à jour les écoles
+      document.getElementById('dir-secteur-select').addEventListener('change', onDirSecteurChange);
+
       document.getElementById('secteurs-header').addEventListener('click', toggleSecteursPanel);
       document.getElementById('btn-add-secteur').addEventListener('click', addSecteur);
       document.getElementById('new-secteur-input').addEventListener('keypress', function(e) {
         if (e.key === 'Enter') addSecteur();
       });
 
-      // Load initial data
       loadContacts();
-      loadSecteurs();
+      loadSecteurs();  // ← charge les secteurs ET peuple le select directeur
       loadDirectors();
       refreshData();
     });
@@ -1167,9 +1254,7 @@
       input.onchange = function() {
         var file = input.files[0];
         if (!file) return;
-
         if (!confirm('⚠️ ATTENTION : Restaurer une sauvegarde REMPLACERA toutes les données actuelles. Continuer ?')) return;
-
         var reader = new FileReader();
         reader.onload = function(e) {
           try {
@@ -1188,9 +1273,7 @@
                 showToast('error', data.error || 'Erreur de restauration');
               }
             })
-            .catch(function() {
-              showToast('error', 'Erreur réseau');
-            });
+            .catch(function() { showToast('error', 'Erreur réseau'); });
           } catch (err) {
             showToast('error', 'Fichier de sauvegarde invalide');
           }
@@ -1205,7 +1288,6 @@
       fetch('/api/ping')
         .then(function(res) { return res.json(); })
         .then(function(data) {
-          console.log('Keep-alive OK:', data.timestamp);
           var el = document.getElementById('keepalive-status');
           if (el) {
             el.textContent = '⏰ Keep-alive actif';
@@ -1221,7 +1303,6 @@
         });
     }, 13 * 60 * 1000);
 
-    // Auto-refresh
     setInterval(refreshData, 5 * 60 * 1000);
   </script>
   <center> Console Admin - Propulsé pa Dj3k S3ph1r0th
