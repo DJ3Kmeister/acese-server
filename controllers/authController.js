@@ -1,8 +1,11 @@
+const { createClient } = require('@supabase/supabase-js');
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
-const User = require('../models/User'); // Assurez-vous que ce chemin est correct
-// Si vous avez un modèle Director séparé, décommentez la ligne suivante :
-// const Director = require('../models/Director'); 
+
+// Initialisation du client Supabase avec la clé de service (pour bypass RLS)
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY; // Utilisez la clé "service_role" secret
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 // @desc    Mot de passe oublié
 // @route   POST /api/auth/forgot-password
@@ -10,31 +13,48 @@ exports.forgotPassword = async (req, res) => {
     const { email } = req.body;
 
     try {
-        // CORRECTION : On cherche l'utilisateur par son email SANS filtrer par rôle.
-        // Ainsi, le Directeur (qui a le rôle "directeur" ou "admin") sera trouvé.
-        let user = await User.findOne({ email });
-        
-        // Si vous avez une collection séparée pour les directeurs :
-        // if (!user && Director) {
-        //     user = await Director.findOne({ email });
-        // }
+        // 1. Chercher dans la table 'users' sans filtrer par rôle
+        let { data: user, error } = await supabase
+            .from('users')
+            .select('*')
+            .eq('email', email)
+            .single();
+
+        // Si non trouvé dans 'users', on cherche dans 'directors' (si table séparée)
+        if (!user) {
+            let { data: director } = await supabase
+                .from('directors')
+                .select('*')
+                .eq('email', email)
+                .single();
+            user = director;
+        }
 
         if (!user) {
             return res.status(404).json({ message: "Aucun compte trouvé avec cet email." });
         }
 
-        // Génération du token
+        // 2. Générer le token
         const resetToken = crypto.randomBytes(20).toString('hex');
+        const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+        const expireDate = new Date(Date.now() + 10 * 60 * 1000).toISOString();
 
-        // Hachage du token pour la sécurité
-        user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
-        user.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // 10 minutes
+        // 3. Déterminer dans quelle table mettre à jour le token
+        const tableName = user.role === 'directeur' ? 'directors' : 'users'; // Ajustez selon votre logique
 
-        await user.save();
+        const { error: updateError } = await supabase
+            .from(tableName)
+            .update({ 
+                reset_password_token: hashedToken, 
+                reset_password_expire: expireDate 
+            })
+            .eq('id', user.id);
 
-        // URL de réinitialisation (à envoyer par email dans un vrai environnement)
+        if (updateError) throw updateError;
+
+        // 4. Envoyer l'email (avec votre service)
         const resetUrl = `${process.env.CLIENT_URL}/reset-password/${resetToken}`;
-        console.log(`Lien de réinitialisation : ${resetUrl}`); // À retirer en production
+        console.log(`Lien de réinitialisation : ${resetUrl}`);
 
         res.status(200).json({ 
             success: true, 
@@ -53,35 +73,44 @@ exports.resetPassword = async (req, res) => {
     const { password } = req.body;
 
     try {
-        const resetPasswordToken = crypto.createHash('sha256').update(token).digest('hex');
+        const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
-        // Recherche de l'utilisateur (Directeur compris) avec le token valide
-        let user = await User.findOne({
-            resetPasswordToken,
-            resetPasswordExpire: { $gt: Date.now() }
-        });
+        // Chercher l'utilisateur avec ce token et non expiré
+        let { data: user } = await supabase
+            .from('users')
+            .select('*')
+            .eq('reset_password_token', hashedToken)
+            .gte('reset_password_expire', new Date().toISOString())
+            .single();
 
-        // Si collection séparée :
-        // if (!user && Director) {
-        //     user = await Director.findOne({
-        //         resetPasswordToken,
-        //         resetPasswordExpire: { $gt: Date.now() }
-        //     });
-        // }
+        if (!user) {
+            let { data: director } = await supabase
+                .from('directors')
+                .select('*')
+                .eq('reset_password_token', hashedToken)
+                .gte('reset_password_expire', new Date().toISOString())
+                .single();
+            user = director;
+        }
 
         if (!user) {
             return res.status(400).json({ message: "Token invalide ou expiré." });
         }
 
-        // Hachage du nouveau mot de passe
+        // Hacher le nouveau mot de passe
         const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(password, salt);
+        const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Effacement des champs de reset
-        user.resetPasswordToken = undefined;
-        user.resetPasswordExpire = undefined;
-
-        await user.save();
+        // Mettre à jour la BDD
+        const tableName = user.role === 'directeur' ? 'directors' : 'users';
+        await supabase
+            .from(tableName)
+            .update({ 
+                password: hashedPassword,
+                reset_password_token: null, 
+                reset_password_expire: null 
+            })
+            .eq('id', user.id);
 
         res.status(200).json({ 
             success: true, 
